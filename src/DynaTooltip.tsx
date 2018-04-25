@@ -1,8 +1,9 @@
 import * as React from "react";
 import {EColor} from "dyna-ui-styles";
 
-import "./DynaTooltip.less";
 import {TooltipContainer} from "./TooltipContainer";
+
+import "./DynaTooltip.less";
 
 export enum EStyle {
 	ROUNDED = "ROUNDED",
@@ -83,11 +84,9 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 	}
 
 	private handleMouseMove(event: MouseEvent): void {
-		// todo: position the tooltip
 		const {tooltipDirection} = this.props;
-		const mouseX: number = event.screenX;
-		const mouseY: number = event.screenY;
-		console.debug('mouse move', mouseX, mouseY, event);
+		const mouseX: number = event.clientX;
+		const mouseY: number = event.clientY;
 		this.setState({
 			...this.calcDistance(tooltipDirection, mouseX, mouseY),
 		})

@@ -11,21 +11,19 @@
 
 .dyna-tooltip-container {
   position: fixed;
-  transition: opacity 250ms ease-in-out;
+  transition: opacity 500ms ease-in-out;
 
   &--display- {
     &SHOW {
-      animation: dyna-tooltip-show 250ms;
+      opacity: 1;
+      //animation: dyna-tooltip-show 250ms forwards;
     }
     &HIDE {
-      animation: dyna-tooltip-hide 250ms;
+      opacity: 0;
+      //animation: dyna-tooltip-hide 250ms forwards;
     }
     @keyframes dyna-tooltip-show {
       0% {
-        display: none;
-      }
-      0.01% {
-        display: block;
         opacity: 0.001;
       }
       100% {
@@ -36,19 +34,20 @@
       0% {
         opacity: 1;
       }
-      99.99% {
-        opacity: 0.001;
-      }
       100% {
-        display: none;
+        opacity: 0.001;
       }
     }
   }
 
   border-width: 1px;
+  border-style: solid;
+  padding: 4px 8px;
+  box-shadow: 3px 3px 6px 0px #3c3c3c;
   &--style- {
     &ROUNDED {
       border-radius: 4px;
+
     }
     &FLATTED {
 
@@ -59,42 +58,52 @@
     &BLACK_WHITE {
       background-color: @color-BLACK_WHITE-background-1;
       border-color: @color-BLACK_WHITE-background-2;
+      color: @color-BLACK_WHITE-foreground-1;
     }
     &BLACK_ORANGE {
       background-color: @color-BLACK_ORANGE-background-1;
       border-color: @color-BLACK_ORANGE-background-2;
+      color: @color-BLACK_ORANGE-foreground-1;
     }
     &TRANSPARENT_ORANGE {
       background-color: @color-TRANSPARENT_ORANGE-background-1;
       border-color: @color-TRANSPARENT_ORANGE-background-2;
+      color: @color-TRANSPARENT_ORANGE-foreground-1;
     }
     &TRANSPARENT_WHITE {
       background-color: @color-TRANSPARENT_WHITE-background-1;
       border-color: @color-TRANSPARENT_WHITE-background-2;
+      color: @color-TRANSPARENT_WHITE-foreground-1;
     }
     &ORANGE_WHITE {
       background-color: @color-ORANGE_WHITE-background-1;
       border-color: @color-ORANGE_WHITE-background-2;
+      color: @color-ORANGE_WHITE-foreground-1;
     }
     &RED_WHITE {
       background-color: @color-RED_WHITE-background-1;
       border-color: @color-RED_WHITE-background-2;
+      color: @color-RED_WHITE-foreground-1;
     }
     &GREY_WHITE {
       background-color: @color-GREY_WHITE-background-1;
       border-color: @color-GREY_WHITE-background-2;
+      color: @color-GREY_WHITE-foreground-2;
     }
     &WHITE_BLACK {
       background-color: @color-WHITE_BLACK-background-1;
       border-color: @color-WHITE_BLACK-background-2;
+      color: @color-WHITE_BLACK-foreground-1;
     }
     &WHITE_RED {
       background-color: @color-WHITE_RED-background-1;
       border-color: @color-WHITE_RED-background-2;
+      color: @color-WHITE_RED-foreground-1;
     }
     &WHITE_ORANGE {
       background-color: @color-WHITE_ORANGE-background-1;
       border-color: @color-WHITE_ORANGE-background-2;
+      color: @color-WHITE_ORANGE-foreground-1;
     }
   }
 

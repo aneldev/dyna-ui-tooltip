@@ -15,7 +15,9 @@ describe('Home', () => {
   it('has expected content with deep render', () => {
     wrapper = enzyme.shallow(
       (
-        <DynaTooltip onClick={() => console.log('I am clicked')}>My button</DynaTooltip>
+        <DynaTooltip
+	        tooltipContent="my tooltip"
+        >My text</DynaTooltip>
       ),
       {}
     );
