@@ -29,7 +29,6 @@ export interface IDynaTooltipProps {
 	children: any;
 	tooltipContent: any;
 	tooltipDirection?: ETooltipDirection;
-	tooltipDistance?: number;
 	_debug_doNotHide?: boolean; // set this to true to do not hide is and style it easier
 }
 
@@ -39,11 +38,6 @@ export interface IDynaTooltipState {
 	y: number;
 }
 
-interface ICoordinates {
-	x:number;
-	y:number;
-}
-
 export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltipState> {
 	static defaultProps: IDynaTooltipProps = {
 		style: EStyle.ROUNDED,
@@ -51,7 +45,6 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 		children: null,
 		tooltipContent: null,
 		tooltipDirection: ETooltipDirection.SOUTH_EAST,
-		tooltipDistance: 14,
 		_debug_doNotHide: false,
 	};
 
@@ -61,20 +54,6 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 			show: false,
 			x: 0, y: 0,
 		};
-	}
-
-	private calcDistance(direction: ETooltipDirection, currentX: number, currentY: number): ICoordinates {
-		const {tooltipDistance} = this.props;
-		switch (direction){
-			case ETooltipDirection.NORTH: return {x: currentX, y: currentY-tooltipDistance};
-			case ETooltipDirection.EAST: return {x: currentX+tooltipDistance, y : currentY};
-			case ETooltipDirection.SOUTH: return {x: currentX, y: currentY+tooltipDistance};
-			case ETooltipDirection.WEST: return {x: currentX-tooltipDistance, y: currentY};
-			case ETooltipDirection.NORTH_EAST: return {x: currentX+tooltipDistance, y: currentY-tooltipDistance};
-			case ETooltipDirection.NORTH_WEST: return {x: currentX-tooltipDistance, y: currentY-tooltipDistance};
-			case ETooltipDirection.SOUTH_EAST: return {x: currentX+tooltipDistance, y: currentY+tooltipDistance};
-			case ETooltipDirection.SOUTH_WEST: return {x: currentX-tooltipDistance, y: currentY+tooltipDistance};
-		}
 	}
 
 	private handleMouseEnter(): void {

@@ -22,7 +22,6 @@ export interface IDynaTooltipProps {
     children: any;
     tooltipContent: any;
     tooltipDirection?: ETooltipDirection;
-    tooltipDistance?: number;
     _debug_doNotHide?: boolean;
 }
 export interface IDynaTooltipState {
