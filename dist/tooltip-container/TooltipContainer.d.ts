@@ -1,7 +1,7 @@
 import * as React from "react";
 import "./TooltipContainer.less";
 import { EColor } from "dyna-ui-styles";
-import { EStyle } from "./DynaTooltip";
+import { EStyle } from "../DynaTooltip";
 export interface ITooltipContainerProps {
     show: boolean;
     x: number;

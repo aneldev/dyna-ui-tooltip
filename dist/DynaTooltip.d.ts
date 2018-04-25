@@ -32,7 +32,6 @@ export interface IDynaTooltipState {
 export declare class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltipState> {
     static defaultProps: IDynaTooltipProps;
     constructor(props: IDynaTooltipProps);
-    private calcDistance(direction, currentX, currentY);
     private handleMouseEnter();
     private handleMouseLeave();
     private handleMouseMove(event);
