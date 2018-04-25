@@ -60,17 +60,17 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 		};
 	}
 
-	private calcDistance(direction:ETooltipDirection):ICoordinates{
+	private calcDistance(direction: ETooltipDirection, currentX: number, currentY: number): ICoordinates {
 		const {tooltipDistance} = this.props;
-		switch(direction){
-			case ETooltipDirection.NORTH: return {x:0, y: -tooltipDistance};
-			case ETooltipDirection.EAST: return {x:+tooltipDistance, y: 0};
-			case ETooltipDirection.SOUTH: return {x:0, y: +tooltipDistance};
-			case ETooltipDirection.WEST: return {x:-tooltipDistance, y: 0};
-			case ETooltipDirection.NORTH_EAST: return {x:tooltipDistance, y: -tooltipDistance};
-			case ETooltipDirection.NORTH_WEST: return {x:-tooltipDistance, y: -tooltipDistance};
-			case ETooltipDirection.SOUTH_EAST: return {x:+tooltipDistance, y: +tooltipDistance};
-			case ETooltipDirection.SOUTH_WEST: return {x:-tooltipDistance, y: -tooltipDistance};
+		switch (direction){
+			case ETooltipDirection.NORTH: return {x: currentX, y: currentY-tooltipDistance};
+			case ETooltipDirection.EAST: return {x: currentX+tooltipDistance, y : currentY};
+			case ETooltipDirection.SOUTH: return {x: currentX, y: currentY+tooltipDistance};
+			case ETooltipDirection.WEST: return {x: currentX-tooltipDistance, y: currentY};
+			case ETooltipDirection.NORTH_EAST: return {x: currentX+tooltipDistance, y: currentY-tooltipDistance};
+			case ETooltipDirection.NORTH_WEST: return {x: currentX-tooltipDistance, y: currentY-tooltipDistance};
+			case ETooltipDirection.SOUTH_EAST: return {x: currentX+tooltipDistance, y: currentY+tooltipDistance};
+			case ETooltipDirection.SOUTH_WEST: return {x: currentX-tooltipDistance, y: currentY+tooltipDistance};
 		}
 	}
 
@@ -83,7 +83,14 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 	}
 
 	private handleMouseMove(event: MouseEvent): void {
-		// todo: position the tootip
+		// todo: position the tooltip
+		const {tooltipDirection} = this.props;
+		const mouseX: number = event.screenX;
+		const mouseY: number = event.screenY;
+		console.debug('mouse move', mouseX, mouseY, event);
+		this.setState({
+			...this.calcDistance(tooltipDirection, mouseX, mouseY),
+		})
 	}
 
 	public render(): JSX.Element {
@@ -93,6 +100,7 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 			tooltipDirection,
 			children,
 		} = this.props;
+
 		const {
 			show, x, y,
 		} = this.state;

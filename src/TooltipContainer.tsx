@@ -7,8 +7,8 @@ import {CSSProperties} from "react";
 
 export interface ITooltipContainerProps {
 	show: boolean;
-	x:number;
-	y:number;
+	x: number;
+	y: number;
 	style?: EStyle;
 	color?: EColor;
 	children: any;
@@ -22,9 +22,9 @@ export class TooltipContainer extends React.Component<ITooltipContainerProps> {
 			children,
 		} = this.props;
 
-		const divStyle:CSSProperties={
+		const divStyle: CSSProperties = {
 			top: y,
-			left:x,
+			left: x,
 		};
 
 		const className: string = [
