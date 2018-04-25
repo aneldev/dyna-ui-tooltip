@@ -1,7 +1,7 @@
 import * as React from "react";
 import {EColor} from "dyna-ui-styles";
 
-import {TooltipContainer} from "./TooltipContainer";
+import {TooltipContainer} from "./tooltip-container/TooltipContainer";
 
 import "./DynaTooltip.less";
 

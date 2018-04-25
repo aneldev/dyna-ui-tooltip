@@ -2,7 +2,7 @@ import * as React from "react";
 
 import "./TooltipContainer.less";
 import {EColor} from "dyna-ui-styles";
-import {EStyle} from "./DynaTooltip";
+import {EStyle} from "../DynaTooltip";
 import {CSSProperties} from "react";
 
 export interface ITooltipContainerProps {
