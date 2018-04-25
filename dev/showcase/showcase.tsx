@@ -18,6 +18,7 @@ export default {
       component: (
         <DynaTooltip
 	        tooltipContent="tooltip content"
+	        _debug_doNotHide={false}
         >Text with tooltip</DynaTooltip>
       ),
 	    props: (() => {

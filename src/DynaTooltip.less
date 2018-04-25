@@ -1,36 +1,42 @@
 .dyna-tooltip {
-  // todo, translate position
-
   &--direction-NORTH {
     .dyna-tooltip-container {
+      transform: translate(-50%, -125%);
     }
   }
   &--direction-EAST {
     .dyna-tooltip-container {
+      transform: translate(+25%, -50%);
     }
   }
   &--direction-SOUTH {
     .dyna-tooltip-container {
+      transform: translate(-50%, +50%);
     }
   }
   &--direction-WEST {
     .dyna-tooltip-container {
+      transform: translate(-125%, -50%);
     }
   }
   &--direction-NORTH_EAST {
     .dyna-tooltip-container {
+      transform: translate(+25%, -125%);
     }
   }
   &--direction-NORTH_WEST {
     .dyna-tooltip-container {
+      transform: translate(-125%, -125%);
     }
   }
-  &--direction-NORTH_EAST {
+  &--direction-SOUTH_EAST {
     .dyna-tooltip-container {
+      transform: translate(+25%, +25%);
     }
   }
-  &--direction-NORTH_WEST {
+  &--direction-SOUTH_WEST {
     .dyna-tooltip-container {
+      transform: translate(-125%, +25%);
     }
   }
 }

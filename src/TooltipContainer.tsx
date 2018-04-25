@@ -30,7 +30,7 @@ export class TooltipContainer extends React.Component<ITooltipContainerProps> {
 		const className: string = [
 			"dyna-tooltip-container",
 			`dyna-tooltip-container--display-${show ? "SHOW" : "HIDE"}`,
-			`dyna-tooltip-container--style-${style}`,
+			`dyna-tooltip-container--style-${style || "NONE"}`,
 			`dyna-tooltip-container--color-${color || "NONE"}`,
 		].join(' ').trim();
 

@@ -23,6 +23,7 @@ export interface IDynaTooltipProps {
     tooltipContent: any;
     tooltipDirection?: ETooltipDirection;
     tooltipDistance?: number;
+    _debug_doNotHide?: boolean;
 }
 export interface IDynaTooltipState {
     show: boolean;

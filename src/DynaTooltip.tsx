@@ -24,12 +24,13 @@ export enum ETooltipDirection {
 }
 
 export interface IDynaTooltipProps {
-	style?: EStyle;
-	color?: EColor;
+	style?: EStyle; // null for NONE style for custom style
+	color?: EColor; // null for NONE color for custom color
 	children: any;
 	tooltipContent: any;
 	tooltipDirection?: ETooltipDirection;
 	tooltipDistance?: number;
+	_debug_doNotHide?: boolean; // set this to true to do not hide is and style it easier
 }
 
 export interface IDynaTooltipState {
@@ -51,6 +52,7 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 		tooltipContent: null,
 		tooltipDirection: ETooltipDirection.SOUTH_EAST,
 		tooltipDistance: 14,
+		_debug_doNotHide: false,
 	};
 
 	constructor(props: IDynaTooltipProps) {
@@ -80,15 +82,14 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 	}
 
 	private handleMouseLeave(): void {
+		if (this.props._debug_doNotHide) return;
 		this.setState({show: false});
 	}
 
 	private handleMouseMove(event: MouseEvent): void {
-		const {tooltipDirection} = this.props;
-		const mouseX: number = event.clientX;
-		const mouseY: number = event.clientY;
 		this.setState({
-			...this.calcDistance(tooltipDirection, mouseX, mouseY),
+			x: event.clientX,
+			y: event.clientY,
 		})
 	}
 
