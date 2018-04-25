@@ -4,7 +4,7 @@
   "description": "React tooltip, no mouhove follow the mouse strategy",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/aneldev/dyna-ui-tooltip"
   },
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",

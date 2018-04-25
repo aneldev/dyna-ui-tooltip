@@ -1,8 +1,9 @@
 import * as React from "react";
 import {EColor} from "dyna-ui-styles";
 
+import {TooltipContainer} from "./tooltip-container/TooltipContainer";
+
 import "./DynaTooltip.less";
-import {TooltipContainer} from "./TooltipContainer";
 
 export enum EStyle {
 	ROUNDED = "ROUNDED",
@@ -23,23 +24,18 @@ export enum ETooltipDirection {
 }
 
 export interface IDynaTooltipProps {
-	style?: EStyle;
-	color?: EColor;
+	style?: EStyle; // null for NONE style for custom style
+	color?: EColor; // null for NONE color for custom color
 	children: any;
 	tooltipContent: any;
 	tooltipDirection?: ETooltipDirection;
-	tooltipDistance?: number;
+	_debug_doNotHide?: boolean; // set this to true to do not hide is and style it easier
 }
 
 export interface IDynaTooltipState {
 	show: boolean;
 	x: number;
 	y: number;
-}
-
-interface ICoordinates {
-	x:number;
-	y:number;
 }
 
 export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltipState> {
@@ -49,7 +45,7 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 		children: null,
 		tooltipContent: null,
 		tooltipDirection: ETooltipDirection.SOUTH_EAST,
-		tooltipDistance: 14,
+		_debug_doNotHide: false,
 	};
 
 	constructor(props: IDynaTooltipProps) {
@@ -60,30 +56,20 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 		};
 	}
 
-	private calcDistance(direction:ETooltipDirection):ICoordinates{
-		const {tooltipDistance} = this.props;
-		switch(direction){
-			case ETooltipDirection.NORTH: return {x:0, y: -tooltipDistance};
-			case ETooltipDirection.EAST: return {x:+tooltipDistance, y: 0};
-			case ETooltipDirection.SOUTH: return {x:0, y: +tooltipDistance};
-			case ETooltipDirection.WEST: return {x:-tooltipDistance, y: 0};
-			case ETooltipDirection.NORTH_EAST: return {x:tooltipDistance, y: -tooltipDistance};
-			case ETooltipDirection.NORTH_WEST: return {x:-tooltipDistance, y: -tooltipDistance};
-			case ETooltipDirection.SOUTH_EAST: return {x:+tooltipDistance, y: +tooltipDistance};
-			case ETooltipDirection.SOUTH_WEST: return {x:-tooltipDistance, y: -tooltipDistance};
-		}
-	}
-
 	private handleMouseEnter(): void {
 		this.setState({show: true});
 	}
 
 	private handleMouseLeave(): void {
+		if (this.props._debug_doNotHide) return;
 		this.setState({show: false});
 	}
 
 	private handleMouseMove(event: MouseEvent): void {
-		// todo: position the tootip
+		this.setState({
+			x: event.clientX,
+			y: event.clientY,
+		})
 	}
 
 	public render(): JSX.Element {
@@ -93,6 +79,7 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 			tooltipDirection,
 			children,
 		} = this.props;
+
 		const {
 			show, x, y,
 		} = this.state;
