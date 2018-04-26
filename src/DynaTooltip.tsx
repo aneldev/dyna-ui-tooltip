@@ -67,8 +67,8 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 
 	private handleMouseMove(event: MouseEvent): void {
 		this.setState({
-			x: event.clientX,
-			y: event.clientY,
+			x: event.screenX,
+			y: event.screenY,
 		})
 	}
 
@@ -86,7 +86,6 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 
 		const className: string = [
 			'dyna-tooltip',
-			`dyna-tooltip--direction-${tooltipDirection}`,
 		].join(' ').trim();
 
 		return (
@@ -103,6 +102,7 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 					color={color}
 					x={x}
 					y={y}
+					tooltipDirection={tooltipDirection}
 				>{tooltipContent}</TooltipContainer>
 				</span>
 		);

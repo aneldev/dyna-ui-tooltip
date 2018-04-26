@@ -599,8 +599,8 @@ var DynaTooltip = /** @class */ (function (_super) {
     };
     DynaTooltip.prototype.handleMouseMove = function (event) {
         this.setState({
-            x: event.clientX,
-            y: event.clientY,
+            x: event.screenX,
+            y: event.screenY,
         });
     };
     DynaTooltip.prototype.render = function () {
