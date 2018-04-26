@@ -9,8 +9,8 @@ export const Logo= ()=>(
       {faIcon('cubes')}
     </div>
     <div className={styles.texts}>
-      <div className={styles.line1}>dyna ts</div>
-      <div className={styles.line2}>react module boilerplate</div>
+      <div className={styles.line1}>dyna ui tooltip</div>
+      <div className={styles.line2}>a follow mouse tooltip</div>
     </div>
   </div>
 

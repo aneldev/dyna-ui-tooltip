@@ -147,8 +147,8 @@ var DynaTooltip = /** @class */ (function (_super) {
     };
     DynaTooltip.prototype.handleMouseMove = function (event) {
         this.tooltipComponent.update({
-            x: event.screenX,
-            y: event.screenY,
+            x: event.pageX,
+            y: event.pageY,
         });
     };
     DynaTooltip.prototype.render = function () {
