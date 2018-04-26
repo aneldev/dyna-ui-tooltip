@@ -30,6 +30,8 @@ export declare class DynaTooltip extends React.Component<IDynaTooltipProps> {
     componentWillMount(): void;
     private initializeTooltipComponent(tooltipComponent);
     componentWillUnmount(): void;
+    componentWillReceiveProps(nextProps: IDynaTooltipProps): void;
+    private updateTooltipFromProps(props);
     private handleMouseEnter();
     private handleMouseLeave();
     private handleMouseMove(event);

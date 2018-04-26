@@ -123,13 +123,19 @@ var DynaTooltip = /** @class */ (function (_super) {
     };
     DynaTooltip.prototype.initializeTooltipComponent = function (tooltipComponent) {
         this.tooltipComponent = tooltipComponent;
-        var _a = this.props, style = _a.style, color = _a.color, tooltipContent = _a.tooltipContent, tooltipDirection = _a.tooltipDirection;
-        this.tooltipComponent.update({
-            style: style, color: color, content: tooltipContent, direction: tooltipDirection,
-        });
+        this.updateTooltipFromProps(this.props);
     };
     DynaTooltip.prototype.componentWillUnmount = function () {
         document.querySelector('body').removeChild(this.tooltipContainer);
+    };
+    DynaTooltip.prototype.componentWillReceiveProps = function (nextProps) {
+        this.updateTooltipFromProps(nextProps);
+    };
+    DynaTooltip.prototype.updateTooltipFromProps = function (props) {
+        var style = props.style, color = props.color, tooltipContent = props.tooltipContent, tooltipDirection = props.tooltipDirection;
+        this.tooltipComponent.update({
+            style: style, color: color, content: tooltipContent, direction: tooltipDirection,
+        });
     };
     DynaTooltip.prototype.handleMouseEnter = function () {
         this.tooltipComponent.update({ show: true });
