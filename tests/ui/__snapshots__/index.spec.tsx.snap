@@ -2,20 +2,10 @@
 
 exports[`Home has expected content with deep render 1`] = `
 <span
-  className="dyna-tooltip dyna-tooltip--direction-SOUTH_EAST"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
   onMouseMove={[Function]}
 >
   My text
-  <TooltipContainer
-    color="WHITE_BLACK"
-    show={false}
-    style="ROUNDED"
-    x={0}
-    y={0}
-  >
-    my tooltip
-  </TooltipContainer>
 </span>
 `;

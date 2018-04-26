@@ -4,8 +4,6 @@ import {EColor} from "dyna-ui-styles";
 
 import {TooltipContainer} from "./tooltip-container/TooltipContainer";
 
-import "./DynaTooltip.less";
-
 export enum EStyle {
 	ROUNDED = "ROUNDED",
 	FLATTED = "FLATTED",
@@ -33,10 +31,7 @@ export interface IDynaTooltipProps {
 	_debug_doNotHide?: boolean; // set this to true to do not hide is and style it easier
 }
 
-export interface IDynaTooltipState {
-}
-
-export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltipState> {
+export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 	static defaultProps: IDynaTooltipProps = {
 		style: EStyle.ROUNDED,
 		color: EColor.WHITE_BLACK,
@@ -56,16 +51,23 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 	}
 
 	private initializeTooltipComponent(tooltipComponent:TooltipContainer):void{
-		console.debug({tooltipComponent});
 		this.tooltipComponent=tooltipComponent;
-		const {style, color, tooltipContent, tooltipDirection} = this.props;
-		this.tooltipComponent.update({
-			style, color, content: tooltipContent, tooltipDirection,
-		});
+		this.updateTooltipFromProps(this.props);
 	}
 
 	public componentWillUnmount():void{
 		document.querySelector('body').removeChild(this.tooltipContainer);
+	}
+
+	public componentWillReceiveProps(nextProps:IDynaTooltipProps):void{
+		this.updateTooltipFromProps(nextProps);
+	}
+
+	private updateTooltipFromProps(props:IDynaTooltipProps):void{
+		const {style, color, tooltipContent, tooltipDirection} = props;
+		this.tooltipComponent.update({
+			style, color, content: tooltipContent, direction: tooltipDirection,
+		});
 	}
 
 	private handleMouseEnter(): void {
@@ -78,7 +80,6 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 	}
 
 	private handleMouseMove(event: MouseEvent): void {
-		console.debug('move...', event.screenX,event.screenY);
 		this.tooltipComponent.update({
 			x: event.screenX,
 			y: event.screenY,
@@ -90,13 +91,8 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 			children,
 		} = this.props;
 
-		const className: string = [
-			'dyna-tooltip',
-		].join(' ').trim();
-
 		return (
 			<span
-				className={className}
 				onMouseEnter={this.handleMouseEnter.bind(this)}
 				onMouseLeave={this.handleMouseLeave.bind(this)}
 				onMouseMove={this.handleMouseMove.bind(this)}
