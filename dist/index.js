@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("dyna-ui-styles"));
+		module.exports = factory(require("react"), require("dyna-ui-styles"), require("react-dom"));
 	else if(typeof define === 'function' && define.amd)
-		define("dyna-ui-tooltip", ["react", "dyna-ui-styles"], factory);
+		define("dyna-ui-tooltip", ["react", "dyna-ui-styles", "react-dom"], factory);
 	else if(typeof exports === 'object')
-		exports["dyna-ui-tooltip"] = factory(require("react"), require("dyna-ui-styles"));
+		exports["dyna-ui-tooltip"] = factory(require("react"), require("dyna-ui-styles"), require("react-dom"));
 	else
-		root["dyna-ui-tooltip"] = factory(root["react"], root["dyna-ui-styles"]);
-})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_6__) {
+		root["dyna-ui-tooltip"] = factory(root["react"], root["dyna-ui-styles"], root["react-dom"]);
+})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_7__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -70,17 +70,118 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(1);
+var ReactDOM = __webpack_require__(7);
+var dyna_ui_styles_1 = __webpack_require__(2);
+exports.EColor = dyna_ui_styles_1.EColor;
+var TooltipContainer_1 = __webpack_require__(8);
+__webpack_require__(12);
+var EStyle;
+(function (EStyle) {
+    EStyle["ROUNDED"] = "ROUNDED";
+    EStyle["FLATTED"] = "FLATTED";
+})(EStyle = exports.EStyle || (exports.EStyle = {}));
+var ETooltipDirection;
+(function (ETooltipDirection) {
+    ETooltipDirection["NORTH"] = "NORTH";
+    ETooltipDirection["EAST"] = "EAST";
+    ETooltipDirection["SOUTH"] = "SOUTH";
+    ETooltipDirection["WEST"] = "WEST";
+    ETooltipDirection["NORTH_EAST"] = "NORTH_EAST";
+    ETooltipDirection["NORTH_WEST"] = "NORTH_WEST";
+    ETooltipDirection["SOUTH_EAST"] = "SOUTH_EAST";
+    ETooltipDirection["SOUTH_WEST"] = "SOUTH_WEST";
+})(ETooltipDirection = exports.ETooltipDirection || (exports.ETooltipDirection = {}));
+var DynaTooltip = /** @class */ (function (_super) {
+    __extends(DynaTooltip, _super);
+    function DynaTooltip() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    DynaTooltip.prototype.componentWillMount = function () {
+        this.tooltipContainer = document.createElement('div');
+        document.querySelector('body').appendChild(this.tooltipContainer);
+        ReactDOM.render(React.createElement(TooltipContainer_1.TooltipContainer, { ref: this.initializeTooltipComponent.bind(this) }), this.tooltipContainer);
+    };
+    DynaTooltip.prototype.initializeTooltipComponent = function (tooltipComponent) {
+        console.debug({ tooltipComponent: tooltipComponent });
+        this.tooltipComponent = tooltipComponent;
+        var _a = this.props, style = _a.style, color = _a.color, tooltipContent = _a.tooltipContent, tooltipDirection = _a.tooltipDirection;
+        this.tooltipComponent.update({
+            style: style, color: color, content: tooltipContent, tooltipDirection: tooltipDirection,
+        });
+    };
+    DynaTooltip.prototype.componentWillUnmount = function () {
+        document.querySelector('body').removeChild(this.tooltipContainer);
+    };
+    DynaTooltip.prototype.handleMouseEnter = function () {
+        this.tooltipComponent.update({ show: true });
+    };
+    DynaTooltip.prototype.handleMouseLeave = function () {
+        if (this.props._debug_doNotHide)
+            return;
+        this.tooltipComponent.update({ show: false });
+    };
+    DynaTooltip.prototype.handleMouseMove = function (event) {
+        console.debug('move...', event.screenX, event.screenY);
+        this.tooltipComponent.update({
+            x: event.screenX,
+            y: event.screenY,
+        });
+    };
+    DynaTooltip.prototype.render = function () {
+        var children = this.props.children;
+        var className = [
+            'dyna-tooltip',
+        ].join(' ').trim();
+        return (React.createElement("span", { className: className, onMouseEnter: this.handleMouseEnter.bind(this), onMouseLeave: this.handleMouseLeave.bind(this), onMouseMove: this.handleMouseMove.bind(this) }, children));
+    };
+    DynaTooltip.defaultProps = {
+        style: EStyle.ROUNDED,
+        color: dyna_ui_styles_1.EColor.WHITE_BLACK,
+        children: null,
+        tooltipContent: null,
+        tooltipDirection: ETooltipDirection.SOUTH_EAST,
+        _debug_doNotHide: false,
+    };
+    return DynaTooltip;
+}(React.Component));
+exports.DynaTooltip = DynaTooltip;
+
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -162,7 +263,7 @@ function toComment(sourceMap) {
 }
 
 /***/ }),
-/* 2 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -208,7 +309,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(10);
+var	fixUrls = __webpack_require__(11);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -521,20 +622,20 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 3 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(4);
+module.exports = __webpack_require__(6);
 
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var DynaTooltip_1 = __webpack_require__(5);
+var DynaTooltip_1 = __webpack_require__(0);
 exports.DynaTooltip = DynaTooltip_1.DynaTooltip;
 exports.EStyle = DynaTooltip_1.EStyle;
 exports.EColor = DynaTooltip_1.EColor;
@@ -542,7 +643,13 @@ exports.ETooltipDirection = DynaTooltip_1.ETooltipDirection;
 
 
 /***/ }),
-/* 5 */
+/* 7 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_7__;
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -558,118 +665,42 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(0);
-var dyna_ui_styles_1 = __webpack_require__(6);
-exports.EColor = dyna_ui_styles_1.EColor;
-var TooltipContainer_1 = __webpack_require__(7);
-__webpack_require__(11);
-var EStyle;
-(function (EStyle) {
-    EStyle["ROUNDED"] = "ROUNDED";
-    EStyle["FLATTED"] = "FLATTED";
-})(EStyle = exports.EStyle || (exports.EStyle = {}));
-var ETooltipDirection;
-(function (ETooltipDirection) {
-    ETooltipDirection["NORTH"] = "NORTH";
-    ETooltipDirection["EAST"] = "EAST";
-    ETooltipDirection["SOUTH"] = "SOUTH";
-    ETooltipDirection["WEST"] = "WEST";
-    ETooltipDirection["NORTH_EAST"] = "NORTH_EAST";
-    ETooltipDirection["NORTH_WEST"] = "NORTH_WEST";
-    ETooltipDirection["SOUTH_EAST"] = "SOUTH_EAST";
-    ETooltipDirection["SOUTH_WEST"] = "SOUTH_WEST";
-})(ETooltipDirection = exports.ETooltipDirection || (exports.ETooltipDirection = {}));
-var DynaTooltip = /** @class */ (function (_super) {
-    __extends(DynaTooltip, _super);
-    function DynaTooltip(props) {
+var React = __webpack_require__(1);
+__webpack_require__(9);
+var dyna_ui_styles_1 = __webpack_require__(2);
+var DynaTooltip_1 = __webpack_require__(0);
+var TooltipContainer = /** @class */ (function (_super) {
+    __extends(TooltipContainer, _super);
+    function TooltipContainer(props) {
         var _this = _super.call(this, props) || this;
         _this.state = {
             show: false,
             x: 0, y: 0,
+            tooltipDirection: DynaTooltip_1.ETooltipDirection.SOUTH_EAST,
+            style: DynaTooltip_1.EStyle.ROUNDED,
+            color: dyna_ui_styles_1.EColor.WHITE_BLACK,
+            content: null,
         };
         return _this;
     }
-    DynaTooltip.prototype.handleMouseEnter = function () {
-        this.setState({ show: true });
+    TooltipContainer.prototype.update = function (state) {
+        console.debug('update...', state);
+        this.setState(state);
     };
-    DynaTooltip.prototype.handleMouseLeave = function () {
-        if (this.props._debug_doNotHide)
-            return;
-        this.setState({ show: false });
-    };
-    DynaTooltip.prototype.handleMouseMove = function (event) {
-        this.setState({
-            x: event.screenX,
-            y: event.screenY,
-        });
-    };
-    DynaTooltip.prototype.render = function () {
-        var _a = this.props, style = _a.style, color = _a.color, tooltipContent = _a.tooltipContent, tooltipDirection = _a.tooltipDirection, children = _a.children;
-        var _b = this.state, show = _b.show, x = _b.x, y = _b.y;
-        var className = [
-            'dyna-tooltip',
-            "dyna-tooltip--direction-" + tooltipDirection,
-        ].join(' ').trim();
-        return (React.createElement("span", { className: className, onMouseEnter: this.handleMouseEnter.bind(this), onMouseLeave: this.handleMouseLeave.bind(this), onMouseMove: this.handleMouseMove.bind(this) },
-            children,
-            React.createElement(TooltipContainer_1.TooltipContainer, { show: show, style: style, color: color, x: x, y: y }, tooltipContent)));
-    };
-    DynaTooltip.defaultProps = {
-        style: EStyle.ROUNDED,
-        color: dyna_ui_styles_1.EColor.WHITE_BLACK,
-        children: null,
-        tooltipContent: null,
-        tooltipDirection: ETooltipDirection.SOUTH_EAST,
-        _debug_doNotHide: false,
-    };
-    return DynaTooltip;
-}(React.Component));
-exports.DynaTooltip = DynaTooltip;
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(0);
-__webpack_require__(8);
-var TooltipContainer = /** @class */ (function (_super) {
-    __extends(TooltipContainer, _super);
-    function TooltipContainer() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
     TooltipContainer.prototype.render = function () {
-        var _a = this.props, show = _a.show, x = _a.x, y = _a.y, style = _a.style, color = _a.color, children = _a.children;
+        var _a = this.state, show = _a.show, x = _a.x, y = _a.y, tooltipDirection = _a.tooltipDirection, style = _a.style, color = _a.color, content = _a.content;
         var divStyle = {
             top: y,
             left: x,
         };
         var className = [
             "dyna-tooltip-container",
+            "dyna-tooltip-container--direction-" + tooltipDirection,
             "dyna-tooltip-container--display-" + (show ? "SHOW" : "HIDE"),
             "dyna-tooltip-container--style-" + (style || "NONE"),
             "dyna-tooltip-container--color-" + (color || "NONE"),
         ].join(' ').trim();
-        return (React.createElement("div", { className: className, style: divStyle }, children));
+        return (React.createElement("div", { className: className, style: divStyle }, content));
     };
     return TooltipContainer;
 }(React.Component));
@@ -677,13 +708,13 @@ exports.TooltipContainer = TooltipContainer;
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(9);
+var content = __webpack_require__(10);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -691,7 +722,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(2)(content, options);
+var update = __webpack_require__(4)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -708,21 +739,21 @@ if(false) {
 }
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(1)(false);
+exports = module.exports = __webpack_require__(3)(false);
 // imports
 
 
 // module
-exports.push([module.i, ".dyna-tooltip-container {\n  position: fixed;\n  -webkit-transition: opacity 500ms ease-in-out;\n  transition: opacity 500ms ease-in-out;\n}\n.dyna-tooltip-container--display-SHOW {\n  opacity: 1;\n}\n.dyna-tooltip-container--display-HIDE {\n  opacity: 0;\n}\n@-webkit-keyframes dyna-tooltip-show {\n  0% {\n    opacity: 0.001;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n@keyframes dyna-tooltip-show {\n  0% {\n    opacity: 0.001;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n@-webkit-keyframes dyna-tooltip-hide {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.001;\n  }\n}\n@keyframes dyna-tooltip-hide {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.001;\n  }\n}\n.dyna-tooltip-container--style-ROUNDED {\n  border: 1px solid;\n  padding: 4px 8px;\n  -webkit-box-shadow: 3px 3px 6px 0px #3c3c3c;\n          box-shadow: 3px 3px 6px 0px #3c3c3c;\n  border-radius: 4px;\n}\n.dyna-tooltip-container--style-FLATTED {\n  border: 1px solid;\n  padding: 4px 8px;\n  -webkit-box-shadow: 3px 3px 6px 0px #3c3c3c;\n          box-shadow: 3px 3px 6px 0px #3c3c3c;\n}\n.dyna-tooltip-container--color-BLACK_WHITE {\n  background-color: #222223;\n  border-color: #101820;\n  color: #D0D3D4;\n}\n.dyna-tooltip-container--color-BLACK_ORANGE {\n  background-color: #222223;\n  border-color: #101820;\n  color: #FF6900;\n}\n.dyna-tooltip-container--color-TRANSPARENT_ORANGE {\n  background-color: transparent;\n  border-color: transparent;\n  color: #FF6900;\n}\n.dyna-tooltip-container--color-TRANSPARENT_WHITE {\n  background-color: transparent;\n  border-color: transparent;\n  color: #D0D3D4;\n}\n.dyna-tooltip-container--color-ORANGE_WHITE {\n  background-color: #FF6900;\n  border-color: #FF8F1C;\n  color: #D9D9D6;\n}\n.dyna-tooltip-container--color-RED_WHITE {\n  background-color: #DA291C;\n  border-color: #D22630;\n  color: #D0D3D4;\n}\n.dyna-tooltip-container--color-GREY_WHITE {\n  background-color: #51534A;\n  border-color: #65665C;\n  color: #C1C6C8;\n}\n.dyna-tooltip-container--color-WHITE_BLACK {\n  background-color: #D0D3D4;\n  border-color: #C1C6C8;\n  color: #222223;\n}\n.dyna-tooltip-container--color-WHITE_RED {\n  background-color: #D0D3D4;\n  border-color: #C1C6C8;\n  color: #DA291C;\n}\n.dyna-tooltip-container--color-WHITE_ORANGE {\n  background-color: #D9D9D6;\n  border-color: #D0D0CE;\n  color: #FF6900;\n}\n", ""]);
+exports.push([module.i, ".dyna-tooltip-container {\n  position: fixed;\n  -webkit-transition: opacity 500ms ease-in-out;\n  transition: opacity 500ms ease-in-out;\n  z-index: 1000;\n}\n.dyna-tooltip-container--display-SHOW {\n  opacity: 1;\n}\n.dyna-tooltip-container--display-HIDE {\n  opacity: 0;\n}\n@-webkit-keyframes dyna-tooltip-show {\n  0% {\n    opacity: 0.001;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n@keyframes dyna-tooltip-show {\n  0% {\n    opacity: 0.001;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n@-webkit-keyframes dyna-tooltip-hide {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.001;\n  }\n}\n@keyframes dyna-tooltip-hide {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.001;\n  }\n}\n.dyna-tooltip-container--style-ROUNDED {\n  border: 1px solid;\n  padding: 4px 8px;\n  -webkit-box-shadow: 3px 3px 6px 0px #3c3c3c;\n          box-shadow: 3px 3px 6px 0px #3c3c3c;\n  border-radius: 4px;\n}\n.dyna-tooltip-container--style-FLATTED {\n  border: 1px solid;\n  padding: 4px 8px;\n  -webkit-box-shadow: 3px 3px 6px 0px #3c3c3c;\n          box-shadow: 3px 3px 6px 0px #3c3c3c;\n}\n.dyna-tooltip-container--color-BLACK_WHITE {\n  background-color: #222223;\n  border-color: #101820;\n  color: #D0D3D4;\n}\n.dyna-tooltip-container--color-BLACK_ORANGE {\n  background-color: #222223;\n  border-color: #101820;\n  color: #FF6900;\n}\n.dyna-tooltip-container--color-TRANSPARENT_ORANGE {\n  background-color: transparent;\n  border-color: transparent;\n  color: #FF6900;\n}\n.dyna-tooltip-container--color-TRANSPARENT_WHITE {\n  background-color: transparent;\n  border-color: transparent;\n  color: #D0D3D4;\n}\n.dyna-tooltip-container--color-ORANGE_WHITE {\n  background-color: #FF6900;\n  border-color: #FF8F1C;\n  color: #D9D9D6;\n}\n.dyna-tooltip-container--color-RED_WHITE {\n  background-color: #DA291C;\n  border-color: #D22630;\n  color: #D0D3D4;\n}\n.dyna-tooltip-container--color-GREY_WHITE {\n  background-color: #51534A;\n  border-color: #65665C;\n  color: #C1C6C8;\n}\n.dyna-tooltip-container--color-WHITE_BLACK {\n  background-color: #D0D3D4;\n  border-color: #C1C6C8;\n  color: #222223;\n}\n.dyna-tooltip-container--color-WHITE_RED {\n  background-color: #D0D3D4;\n  border-color: #C1C6C8;\n  color: #DA291C;\n}\n.dyna-tooltip-container--color-WHITE_ORANGE {\n  background-color: #D9D9D6;\n  border-color: #D0D0CE;\n  color: #FF6900;\n}\n.dyna-tooltip-container--direction-NORTH {\n  -webkit-transform: translate(-50%, -125%);\n          transform: translate(-50%, -125%);\n}\n.dyna-tooltip-container--direction-EAST {\n  -webkit-transform: translate(25%, -50%);\n          transform: translate(25%, -50%);\n}\n.dyna-tooltip-container--direction-SOUTH {\n  -webkit-transform: translate(-50%, 50%);\n          transform: translate(-50%, 50%);\n}\n.dyna-tooltip-container--direction-WEST {\n  -webkit-transform: translate(-125%, -50%);\n          transform: translate(-125%, -50%);\n}\n.dyna-tooltip-container--direction-NORTH_EAST {\n  -webkit-transform: translate(25%, -125%);\n          transform: translate(25%, -125%);\n}\n.dyna-tooltip-container--direction-NORTH_WEST {\n  -webkit-transform: translate(-125%, -125%);\n          transform: translate(-125%, -125%);\n}\n.dyna-tooltip-container--direction-SOUTH_EAST {\n  -webkit-transform: translate(25%, 25%);\n          transform: translate(25%, 25%);\n}\n.dyna-tooltip-container--direction-SOUTH_WEST {\n  -webkit-transform: translate(-125%, 25%);\n          transform: translate(-125%, 25%);\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -817,13 +848,13 @@ module.exports = function (css) {
 };
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(12);
+var content = __webpack_require__(13);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -831,7 +862,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(2)(content, options);
+var update = __webpack_require__(4)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -848,15 +879,15 @@ if(false) {
 }
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(1)(false);
+exports = module.exports = __webpack_require__(3)(false);
 // imports
 
 
 // module
-exports.push([module.i, ".dyna-tooltip--direction-NORTH .dyna-tooltip-container {\n  -webkit-transform: translate(-50%, -125%);\n          transform: translate(-50%, -125%);\n}\n.dyna-tooltip--direction-EAST .dyna-tooltip-container {\n  -webkit-transform: translate(25%, -50%);\n          transform: translate(25%, -50%);\n}\n.dyna-tooltip--direction-SOUTH .dyna-tooltip-container {\n  -webkit-transform: translate(-50%, 50%);\n          transform: translate(-50%, 50%);\n}\n.dyna-tooltip--direction-WEST .dyna-tooltip-container {\n  -webkit-transform: translate(-125%, -50%);\n          transform: translate(-125%, -50%);\n}\n.dyna-tooltip--direction-NORTH_EAST .dyna-tooltip-container {\n  -webkit-transform: translate(25%, -125%);\n          transform: translate(25%, -125%);\n}\n.dyna-tooltip--direction-NORTH_WEST .dyna-tooltip-container {\n  -webkit-transform: translate(-125%, -125%);\n          transform: translate(-125%, -125%);\n}\n.dyna-tooltip--direction-SOUTH_EAST .dyna-tooltip-container {\n  -webkit-transform: translate(25%, 25%);\n          transform: translate(25%, 25%);\n}\n.dyna-tooltip--direction-SOUTH_WEST .dyna-tooltip-container {\n  -webkit-transform: translate(-125%, 25%);\n          transform: translate(-125%, 25%);\n}\n", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 

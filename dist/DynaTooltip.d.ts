@@ -25,13 +25,14 @@ export interface IDynaTooltipProps {
     _debug_doNotHide?: boolean;
 }
 export interface IDynaTooltipState {
-    show: boolean;
-    x: number;
-    y: number;
 }
 export declare class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltipState> {
     static defaultProps: IDynaTooltipProps;
-    constructor(props: IDynaTooltipProps);
+    private tooltipContainer;
+    private tooltipComponent;
+    componentWillMount(): void;
+    private initializeTooltipComponent(tooltipComponent);
+    componentWillUnmount(): void;
     private handleMouseEnter();
     private handleMouseLeave();
     private handleMouseMove(event);

@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import {EColor} from "dyna-ui-styles";
 
 import {TooltipContainer} from "./tooltip-container/TooltipContainer";
@@ -33,9 +34,6 @@ export interface IDynaTooltipProps {
 }
 
 export interface IDynaTooltipState {
-	show: boolean;
-	x: number;
-	y: number;
 }
 
 export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltipState> {
@@ -48,41 +46,49 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 		_debug_doNotHide: false,
 	};
 
-	constructor(props: IDynaTooltipProps) {
-		super(props);
-		this.state = {
-			show: false,
-			x: 0, y: 0,
-		};
+	private tooltipContainer: HTMLDivElement;
+	private tooltipComponent: TooltipContainer;
+
+	public componentWillMount(): void {
+		this.tooltipContainer = document.createElement('div');
+		document.querySelector('body').appendChild(this.tooltipContainer);
+		ReactDOM.render(<TooltipContainer ref={this.initializeTooltipComponent.bind(this)}/>, this.tooltipContainer);
+	}
+
+	private initializeTooltipComponent(tooltipComponent:TooltipContainer):void{
+		console.debug({tooltipComponent});
+		this.tooltipComponent=tooltipComponent;
+		const {style, color, tooltipContent, tooltipDirection} = this.props;
+		this.tooltipComponent.update({
+			style, color, content: tooltipContent, tooltipDirection,
+		});
+	}
+
+	public componentWillUnmount():void{
+		document.querySelector('body').removeChild(this.tooltipContainer);
 	}
 
 	private handleMouseEnter(): void {
-		this.setState({show: true});
+		this.tooltipComponent.update({show: true});
 	}
 
 	private handleMouseLeave(): void {
 		if (this.props._debug_doNotHide) return;
-		this.setState({show: false});
+		this.tooltipComponent.update({show: false});
 	}
 
 	private handleMouseMove(event: MouseEvent): void {
-		this.setState({
+		console.debug('move...', event.screenX,event.screenY);
+		this.tooltipComponent.update({
 			x: event.screenX,
 			y: event.screenY,
-		})
+		});
 	}
 
 	public render(): JSX.Element {
 		const {
-			style, color,
-			tooltipContent,
-			tooltipDirection,
 			children,
 		} = this.props;
-
-		const {
-			show, x, y,
-		} = this.state;
 
 		const className: string = [
 			'dyna-tooltip',
@@ -94,17 +100,7 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps, IDynaTooltip
 				onMouseEnter={this.handleMouseEnter.bind(this)}
 				onMouseLeave={this.handleMouseLeave.bind(this)}
 				onMouseMove={this.handleMouseMove.bind(this)}
-			>
-				{children}
-				<TooltipContainer
-					show={show}
-					style={style}
-					color={color}
-					x={x}
-					y={y}
-					tooltipDirection={tooltipDirection}
-				>{tooltipContent}</TooltipContainer>
-				</span>
+			>{children}</span>
 		);
 	}
 }
