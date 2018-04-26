@@ -12,6 +12,7 @@
 .dyna-tooltip-container {
   position: fixed;
   transition: opacity 500ms ease-in-out;
+  z-index: 1000;
 
   &--display- {
     &SHOW {
@@ -106,5 +107,31 @@
       color: @color-WHITE_ORANGE-foreground-1;
     }
   }
+
+  &--direction-NORTH {
+    transform: translate(-50%, -125%);
+  }
+  &--direction-EAST {
+    transform: translate(+25%, -50%);
+  }
+  &--direction-SOUTH {
+    transform: translate(-50%, +50%);
+  }
+  &--direction-WEST {
+    transform: translate(-125%, -50%);
+  }
+  &--direction-NORTH_EAST {
+    transform: translate(+25%, -125%);
+  }
+  &--direction-NORTH_WEST {
+    transform: translate(-125%, -125%);
+  }
+  &--direction-SOUTH_EAST {
+    transform: translate(+25%, +25%);
+  }
+  &--direction-SOUTH_WEST {
+    transform: translate(-125%, +25%);
+  }
+
 
 }
