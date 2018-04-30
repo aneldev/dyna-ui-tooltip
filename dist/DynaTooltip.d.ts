@@ -25,12 +25,14 @@ export interface IDynaTooltipProps {
 }
 export declare class DynaTooltip extends React.Component<IDynaTooltipProps> {
     static defaultProps: IDynaTooltipProps;
+    constructor(props: IDynaTooltipProps);
     private tooltipContainer;
     private tooltipComponent;
     componentWillMount(): void;
     private initializeTooltipComponent(tooltipComponent);
     componentWillUnmount(): void;
     componentWillReceiveProps(nextProps: IDynaTooltipProps): void;
+    private handleGlobalScroll(event);
     private updateTooltipFromProps(props);
     private handleMouseEnter();
     private handleMouseLeave();

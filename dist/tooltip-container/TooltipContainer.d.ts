@@ -16,6 +16,7 @@ export interface ITooltipContainerState {
 }
 export declare class TooltipContainer extends React.Component<ITooltipContainerProps, ITooltipContainerState> {
     constructor(props: ITooltipContainerProps);
+    private domDisplayTimer;
     update(state: ITooltipContainerState): void;
     render(): JSX.Element;
 }
