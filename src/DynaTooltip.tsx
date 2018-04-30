@@ -76,14 +76,15 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 	}
 
 	private handleMouseLeave(): void {
+		if (1 == 1) return;
 		if (this.props._debug_doNotHide) return;
 		this.tooltipComponent.update({show: false});
 	}
 
 	private handleMouseMove(event: MouseEvent): void {
 		this.tooltipComponent.update({
-			x: event.pageX,
-			y: event.pageY,
+			x: event.clientX,
+			y: event.clientY,
 		});
 	}
 

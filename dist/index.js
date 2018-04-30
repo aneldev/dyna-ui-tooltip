@@ -143,6 +143,8 @@ var DynaTooltip = /** @class */ (function (_super) {
         this.tooltipComponent.update({ show: true });
     };
     DynaTooltip.prototype.handleMouseLeave = function () {
+        if (true)
+            return;
         if (this.props._debug_doNotHide)
             return;
         this.tooltipComponent.update({ show: false });
