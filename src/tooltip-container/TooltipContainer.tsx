@@ -6,6 +6,8 @@ import {EStyle, ETooltipDirection} from "../DynaTooltip";
 
 import "./TooltipContainer.less";
 
+const animationDuration: number = 250; // same value 240852049
+
 export interface ITooltipContainerProps {
 }
 
@@ -17,6 +19,7 @@ export interface ITooltipContainerState {
 	style?: EStyle;
 	color?: EColor;
 	content?: any;
+	_domDisplay?: boolean;
 }
 
 export class TooltipContainer extends React.Component<ITooltipContainerProps, ITooltipContainerState> {
@@ -29,11 +32,30 @@ export class TooltipContainer extends React.Component<ITooltipContainerProps, IT
 			style: EStyle.ROUNDED,
 			color: EColor.WHITE_BLACK,
 			content: null,
+			_domDisplay: false,
 		};
 	}
 
 	public update(state: ITooltipContainerState): void {
+		state = {...state};
+		const turnsToShow: boolean = this.state.show === false && state.show === true;
+		const turnsToHide: boolean = this.state.show === true && state.show === false;
+
+		if (turnsToShow) {
+			state._domDisplay = true;
+			state.show = false;
+			setTimeout(() => {
+				this.setState({show: true});
+			}, 10);
+		}
+
 		this.setState(state);
+
+		if (turnsToHide) {
+			setTimeout(() => {
+				this.setState({_domDisplay: false})
+			}, animationDuration);
+		}
 	}
 
 	public render(): JSX.Element {
@@ -41,7 +63,10 @@ export class TooltipContainer extends React.Component<ITooltipContainerProps, IT
 			show, x, y, direction,
 			style, color,
 			content,
+			_domDisplay,
 		} = this.state;
+
+		if (!_domDisplay) return null;
 
 		const divStyle: CSSProperties = {
 			top: y,

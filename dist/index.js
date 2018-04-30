@@ -223,11 +223,20 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
 var dyna_ui_styles_1 = __webpack_require__(2);
 var DynaTooltip_1 = __webpack_require__(0);
 __webpack_require__(7);
+var animationDuration = 250; // same value 240852049
 var TooltipContainer = /** @class */ (function (_super) {
     __extends(TooltipContainer, _super);
     function TooltipContainer(props) {
@@ -239,14 +248,33 @@ var TooltipContainer = /** @class */ (function (_super) {
             style: DynaTooltip_1.EStyle.ROUNDED,
             color: dyna_ui_styles_1.EColor.WHITE_BLACK,
             content: null,
+            _domDisplay: false,
         };
         return _this;
     }
     TooltipContainer.prototype.update = function (state) {
+        var _this = this;
+        state = __assign({}, state);
+        var turnsToShow = this.state.show === false && state.show === true;
+        var turnsToHide = this.state.show === true && state.show === false;
+        if (turnsToShow) {
+            state._domDisplay = true;
+            state.show = false;
+            setTimeout(function () {
+                _this.setState({ show: true });
+            }, 10);
+        }
         this.setState(state);
+        if (turnsToHide) {
+            setTimeout(function () {
+                _this.setState({ _domDisplay: false });
+            }, animationDuration);
+        }
     };
     TooltipContainer.prototype.render = function () {
-        var _a = this.state, show = _a.show, x = _a.x, y = _a.y, direction = _a.direction, style = _a.style, color = _a.color, content = _a.content;
+        var _a = this.state, show = _a.show, x = _a.x, y = _a.y, direction = _a.direction, style = _a.style, color = _a.color, content = _a.content, _domDisplay = _a._domDisplay;
+        if (!_domDisplay)
+            return null;
         var divStyle = {
             top: y,
             left: x,
@@ -305,7 +333,7 @@ exports = module.exports = __webpack_require__(9)(false);
 
 
 // module
-exports.push([module.i, ".dyna-tooltip-container {\n  position: fixed;\n  -webkit-transition: opacity 500ms ease-in-out;\n  transition: opacity 500ms ease-in-out;\n  z-index: 1000;\n}\n.dyna-tooltip-container--display-SHOW {\n  opacity: 1;\n}\n.dyna-tooltip-container--display-HIDE {\n  opacity: 0;\n}\n@-webkit-keyframes dyna-tooltip-show {\n  0% {\n    opacity: 0.001;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n@keyframes dyna-tooltip-show {\n  0% {\n    opacity: 0.001;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n@-webkit-keyframes dyna-tooltip-hide {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.001;\n  }\n}\n@keyframes dyna-tooltip-hide {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.001;\n  }\n}\n.dyna-tooltip-container--style-ROUNDED {\n  border: 1px solid;\n  padding: 4px 8px;\n  -webkit-box-shadow: 3px 3px 6px 0px #3c3c3c;\n          box-shadow: 3px 3px 6px 0px #3c3c3c;\n  border-radius: 4px;\n}\n.dyna-tooltip-container--style-FLATTED {\n  border: 1px solid;\n  padding: 4px 8px;\n  -webkit-box-shadow: 3px 3px 6px 0px #3c3c3c;\n          box-shadow: 3px 3px 6px 0px #3c3c3c;\n}\n.dyna-tooltip-container--color-BLACK_WHITE {\n  background-color: #222223;\n  border-color: #A2AAAD;\n  color: #2D2926;\n}\n.dyna-tooltip-container--color-BLACK_ORANGE {\n  background-color: #222223;\n  border-color: #FFAE62;\n  color: #2D2926;\n}\n.dyna-tooltip-container--color-TRANSPARENT_ORANGE {\n  background-color: transparent;\n  border-color: #FFAE62;\n  color: #2D2926;\n}\n.dyna-tooltip-container--color-TRANSPARENT_WHITE {\n  background-color: transparent;\n  border-color: #A2AAAD;\n  color: #2D2926;\n}\n.dyna-tooltip-container--color-ORANGE_WHITE {\n  background-color: #FF6900;\n  border-color: #C8C9C7;\n  color: #2D2926;\n}\n.dyna-tooltip-container--color-RED_WHITE {\n  background-color: #DA291C;\n  border-color: #A2AAAD;\n  color: #2D2926;\n}\n.dyna-tooltip-container--color-GREY_WHITE {\n  background-color: #51534A;\n  border-color: #A2AAAD;\n  color: #C1C6C8;\n}\n.dyna-tooltip-container--color-WHITE_BLACK {\n  background-color: #D0D3D4;\n  border-color: #212721;\n  color: #2D2926;\n}\n.dyna-tooltip-container--color-WHITE_RED {\n  background-color: #D0D3D4;\n  border-color: #AF272F;\n  color: #2D2926;\n}\n.dyna-tooltip-container--color-WHITE_ORANGE {\n  background-color: #D9D9D6;\n  border-color: #FFAE62;\n  color: #2D2926;\n}\n.dyna-tooltip-container--direction-NORTH {\n  -webkit-transform: translate(-50%, -125%);\n          transform: translate(-50%, -125%);\n}\n.dyna-tooltip-container--direction-EAST {\n  -webkit-transform: translate(25%, -50%);\n          transform: translate(25%, -50%);\n}\n.dyna-tooltip-container--direction-SOUTH {\n  -webkit-transform: translate(-50%, 50%);\n          transform: translate(-50%, 50%);\n}\n.dyna-tooltip-container--direction-WEST {\n  -webkit-transform: translate(-125%, -50%);\n          transform: translate(-125%, -50%);\n}\n.dyna-tooltip-container--direction-NORTH_EAST {\n  -webkit-transform: translate(25%, -125%);\n          transform: translate(25%, -125%);\n}\n.dyna-tooltip-container--direction-NORTH_WEST {\n  -webkit-transform: translate(-125%, -125%);\n          transform: translate(-125%, -125%);\n}\n.dyna-tooltip-container--direction-SOUTH_EAST {\n  -webkit-transform: translate(25%, 25%);\n          transform: translate(25%, 25%);\n}\n.dyna-tooltip-container--direction-SOUTH_WEST {\n  -webkit-transform: translate(-125%, 25%);\n          transform: translate(-125%, 25%);\n}\n", ""]);
+exports.push([module.i, ".dyna-tooltip-container {\n  position: fixed;\n  -webkit-transition: opacity 250ms ease-in-out;\n  transition: opacity 250ms ease-in-out;\n  z-index: 1000;\n}\n.dyna-tooltip-container--display-SHOW {\n  opacity: 1;\n}\n.dyna-tooltip-container--display-HIDE {\n  opacity: 0;\n}\n@-webkit-keyframes dyna-tooltip-show {\n  0% {\n    opacity: 0.001;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n@keyframes dyna-tooltip-show {\n  0% {\n    opacity: 0.001;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n@-webkit-keyframes dyna-tooltip-hide {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.001;\n  }\n}\n@keyframes dyna-tooltip-hide {\n  0% {\n    opacity: 1;\n  }\n  100% {\n    opacity: 0.001;\n  }\n}\n.dyna-tooltip-container--style-ROUNDED {\n  border: 1px solid;\n  padding: 4px 8px;\n  -webkit-box-shadow: 3px 3px 6px 0px #3c3c3c;\n          box-shadow: 3px 3px 6px 0px #3c3c3c;\n  border-radius: 4px;\n}\n.dyna-tooltip-container--style-FLATTED {\n  border: 1px solid;\n  padding: 4px 8px;\n  -webkit-box-shadow: 3px 3px 6px 0px #3c3c3c;\n          box-shadow: 3px 3px 6px 0px #3c3c3c;\n}\n.dyna-tooltip-container--color-BLACK_WHITE {\n  background-color: #222223;\n  border-color: #A2AAAD;\n  color: #2D2926;\n}\n.dyna-tooltip-container--color-BLACK_ORANGE {\n  background-color: #222223;\n  border-color: #FFAE62;\n  color: #2D2926;\n}\n.dyna-tooltip-container--color-TRANSPARENT_ORANGE {\n  background-color: transparent;\n  border-color: #FFAE62;\n  color: #2D2926;\n}\n.dyna-tooltip-container--color-TRANSPARENT_WHITE {\n  background-color: transparent;\n  border-color: #A2AAAD;\n  color: #2D2926;\n}\n.dyna-tooltip-container--color-ORANGE_WHITE {\n  background-color: #FF6900;\n  border-color: #C8C9C7;\n  color: #2D2926;\n}\n.dyna-tooltip-container--color-RED_WHITE {\n  background-color: #DA291C;\n  border-color: #A2AAAD;\n  color: #2D2926;\n}\n.dyna-tooltip-container--color-GREY_WHITE {\n  background-color: #51534A;\n  border-color: #A2AAAD;\n  color: #C1C6C8;\n}\n.dyna-tooltip-container--color-WHITE_BLACK {\n  background-color: #D0D3D4;\n  border-color: #212721;\n  color: #2D2926;\n}\n.dyna-tooltip-container--color-WHITE_RED {\n  background-color: #D0D3D4;\n  border-color: #AF272F;\n  color: #2D2926;\n}\n.dyna-tooltip-container--color-WHITE_ORANGE {\n  background-color: #D9D9D6;\n  border-color: #FFAE62;\n  color: #2D2926;\n}\n.dyna-tooltip-container--direction-NORTH {\n  -webkit-transform: translate(-50%, -125%);\n          transform: translate(-50%, -125%);\n}\n.dyna-tooltip-container--direction-EAST {\n  -webkit-transform: translate(25%, -50%);\n          transform: translate(25%, -50%);\n}\n.dyna-tooltip-container--direction-SOUTH {\n  -webkit-transform: translate(-50%, 50%);\n          transform: translate(-50%, 50%);\n}\n.dyna-tooltip-container--direction-WEST {\n  -webkit-transform: translate(-125%, -50%);\n          transform: translate(-125%, -50%);\n}\n.dyna-tooltip-container--direction-NORTH_EAST {\n  -webkit-transform: translate(25%, -125%);\n          transform: translate(25%, -125%);\n}\n.dyna-tooltip-container--direction-NORTH_WEST {\n  -webkit-transform: translate(-125%, -125%);\n          transform: translate(-125%, -125%);\n}\n.dyna-tooltip-container--direction-SOUTH_EAST {\n  -webkit-transform: translate(25%, 25%);\n          transform: translate(25%, 25%);\n}\n.dyna-tooltip-container--direction-SOUTH_WEST {\n  -webkit-transform: translate(-125%, 25%);\n          transform: translate(-125%, 25%);\n}\n", ""]);
 
 // exports
 

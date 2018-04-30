@@ -12,6 +12,7 @@ export interface ITooltipContainerState {
     style?: EStyle;
     color?: EColor;
     content?: any;
+    _domDisplay?: boolean;
 }
 export declare class TooltipContainer extends React.Component<ITooltipContainerProps, ITooltipContainerState> {
     constructor(props: ITooltipContainerProps);
