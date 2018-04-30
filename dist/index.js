@@ -132,6 +132,7 @@ var DynaTooltip = /** @class */ (function (_super) {
         this.updateTooltipFromProps(nextProps);
     };
     DynaTooltip.prototype.updateTooltipFromProps = function (props) {
+        //if (!this.tooltipComponent) return; // is not yet rendered
         var style = props.style, color = props.color, tooltipContent = props.tooltipContent, tooltipDirection = props.tooltipDirection;
         this.tooltipComponent.update({
             style: style, color: color, content: tooltipContent, direction: tooltipDirection,

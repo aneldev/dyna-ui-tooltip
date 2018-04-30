@@ -50,20 +50,21 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 		ReactDOM.render(<TooltipContainer ref={this.initializeTooltipComponent.bind(this)}/>, this.tooltipContainer);
 	}
 
-	private initializeTooltipComponent(tooltipComponent:TooltipContainer):void{
-		this.tooltipComponent=tooltipComponent;
+	private initializeTooltipComponent(tooltipComponent: TooltipContainer): void {
+		this.tooltipComponent = tooltipComponent;
 		this.updateTooltipFromProps(this.props);
 	}
 
-	public componentWillUnmount():void{
+	public componentWillUnmount(): void {
 		document.querySelector('body').removeChild(this.tooltipContainer);
 	}
 
-	public componentWillReceiveProps(nextProps:IDynaTooltipProps):void{
+	public componentWillReceiveProps(nextProps: IDynaTooltipProps): void {
 		this.updateTooltipFromProps(nextProps);
 	}
 
-	private updateTooltipFromProps(props:IDynaTooltipProps):void{
+	private updateTooltipFromProps(props: IDynaTooltipProps): void {
+		if (!this.tooltipComponent) return; // is not yet rendered
 		const {style, color, tooltipContent, tooltipDirection} = props;
 		this.tooltipComponent.update({
 			style, color, content: tooltipContent, direction: tooltipDirection,
