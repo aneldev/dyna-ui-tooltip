@@ -5,7 +5,6 @@ import {EColor} from "dyna-ui-styles";
 import {EStyle, ETooltipDirection} from "../DynaTooltip";
 
 import "./TooltipContainer.less";
-import {clearTimeout} from "timers";
 
 const animationDuration: number = 250; // same value 240852049
 
@@ -37,7 +36,7 @@ export class TooltipContainer extends React.Component<ITooltipContainerProps, IT
 		};
 	}
 
-	private domDisplayTimer: any;
+	private domDisplayTimer: any = null;
 
 	public update(state: ITooltipContainerState): void {
 		state = {...state};
@@ -45,7 +44,8 @@ export class TooltipContainer extends React.Component<ITooltipContainerProps, IT
 		const turnsToHide: boolean = this.state.show === true && state.show === false;
 
 		if (turnsToShow) {
-			clearTimeout(this.domDisplayTimer);
+			if (this.domDisplayTimer !== null) clearTimeout(this.domDisplayTimer);
+			this.domDisplayTimer = null;
 			state._domDisplay = true;
 			state.show = false;
 			setTimeout(() => {
@@ -57,7 +57,8 @@ export class TooltipContainer extends React.Component<ITooltipContainerProps, IT
 
 		if (turnsToHide) {
 			this.domDisplayTimer = setTimeout(() => {
-				this.setState({_domDisplay: false})
+				this.domDisplayTimer = null;
+				this.setState({_domDisplay: false});
 			}, animationDuration);
 		}
 	}

@@ -41,6 +41,11 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 		_debug_doNotHide: false,
 	};
 
+	constructor(props: IDynaTooltipProps) {
+		super(props);
+		this.handleGlobalScroll = this.handleGlobalScroll.bind(this)
+	}
+
 	private tooltipContainer: HTMLDivElement;
 	private tooltipComponent: TooltipContainer;
 
@@ -48,6 +53,7 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 		this.tooltipContainer = document.createElement('div');
 		document.querySelector('body').appendChild(this.tooltipContainer);
 		ReactDOM.render(<TooltipContainer ref={this.initializeTooltipComponent.bind(this)}/>, this.tooltipContainer);
+		window.addEventListener('scroll', this.handleGlobalScroll, true);
 	}
 
 	private initializeTooltipComponent(tooltipComponent: TooltipContainer): void {
@@ -57,10 +63,15 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 
 	public componentWillUnmount(): void {
 		document.querySelector('body').removeChild(this.tooltipContainer);
+		window.removeEventListener('scroll', this.handleGlobalScroll);
 	}
 
 	public componentWillReceiveProps(nextProps: IDynaTooltipProps): void {
 		this.updateTooltipFromProps(nextProps);
+	}
+
+	private handleGlobalScroll(event: Event): void {
+		if (this.tooltipComponent) this.tooltipComponent.update({show: false});
 	}
 
 	private updateTooltipFromProps(props: IDynaTooltipProps): void {
@@ -76,7 +87,6 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 	}
 
 	private handleMouseLeave(): void {
-		if (1 == 1) return;
 		if (this.props._debug_doNotHide) return;
 		this.tooltipComponent.update({show: false});
 	}
