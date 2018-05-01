@@ -63,6 +63,14 @@ export class TooltipContainer extends React.Component<ITooltipContainerProps, IT
 		}
 	}
 
+	private get hasContent():boolean{
+		const {content}=this.state;
+		if (Array.isArray(content))
+			return !!content.filter((v:any)=>!!v).length;
+		else
+			return !!content;
+	}
+
 	public render(): JSX.Element {
 		const {
 			show, x, y, direction,
@@ -70,6 +78,8 @@ export class TooltipContainer extends React.Component<ITooltipContainerProps, IT
 			content,
 			_domDisplay,
 		} = this.state;
+
+		if (!this.hasContent) return null;
 
 		if (!_domDisplay) return null;
 

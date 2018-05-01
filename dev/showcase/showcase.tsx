@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {DynaTooltip, EColor, EStyle, ETooltipDirection} from "../../src";
+import {DynaTooltip, EColor, EStyle, ETooltipDirection, IDynaTooltipProps} from "../../src";
 
 import {IShowcase} from "dyna-showcase";
 import {Logo} from "../logo";
@@ -31,6 +31,62 @@ export default {
 	    	overflowY: "auto",
 	      height: "100%",
       },
+    },
+    {
+	    slug: 'tooltip-with-no-content',
+      faIconName: 'flask',
+	    title: 'tooltip with not content',
+	    description: "no tooltip is shown since no tooltip content is provided",
+      center: true,
+	    component: (
+		    <DynaTooltip
+			    tooltipContent={null}
+		    >Text without tooltip content</DynaTooltip>
+	    ),
+	    props: [
+		    {
+		    	slug: 'null',
+			    title: "null value",
+			    props: {
+		    		tooltipContent: null,
+			    } as IDynaTooltipProps,
+		    },
+		    {
+		    	slug: 'undefined',
+			    title: "undefined value",
+			    props: {
+		    		tooltipContent: undefined,
+			    } as IDynaTooltipProps,
+		    },
+		    {
+		    	slug: 'empty-string',
+			    title: "empty string value",
+			    props: {
+		    		tooltipContent: "",
+			    } as IDynaTooltipProps,
+		    },
+		    {
+		    	slug: 'empty-array',
+			    title: "empty array value",
+			    props: {
+		    		tooltipContent: [],
+			    } as IDynaTooltipProps,
+		    },
+		    {
+		    	slug: 'array-with-empties',
+			    title: "array with empties",
+			    props: {
+		    		tooltipContent: [null, undefined, ""],
+			    } as IDynaTooltipProps,
+		    },
+		    {
+		    	slug: 'with-value',
+			    title: "with value",
+			    props: {
+				    tooltipContent: <h1>I am not empty</h1>,
+			    } as IDynaTooltipProps,
+		    },
+	    ],
     },
 	  {
 		  slug: 'all-colors-directions',
