@@ -1,6 +1,6 @@
 {
   "name": "dyna-ui-tooltip",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "description": "React tooltip, no mouhove follow the mouse strategy",
   "repository": {
     "type": "git",
