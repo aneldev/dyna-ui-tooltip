@@ -286,8 +286,21 @@ var TooltipContainer = /** @class */ (function (_super) {
             }, animationDuration);
         }
     };
+    Object.defineProperty(TooltipContainer.prototype, "hasContent", {
+        get: function () {
+            var content = this.state.content;
+            if (Array.isArray(content))
+                return !!content.filter(function (v) { return !!v; }).length;
+            else
+                return !!content;
+        },
+        enumerable: true,
+        configurable: true
+    });
     TooltipContainer.prototype.render = function () {
         var _a = this.state, show = _a.show, x = _a.x, y = _a.y, direction = _a.direction, style = _a.style, color = _a.color, content = _a.content, _domDisplay = _a._domDisplay;
+        if (!this.hasContent)
+            return null;
         if (!_domDisplay)
             return null;
         var divStyle = {

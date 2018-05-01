@@ -18,5 +18,6 @@ export declare class TooltipContainer extends React.Component<ITooltipContainerP
     constructor(props: ITooltipContainerProps);
     private domDisplayTimer;
     update(state: ITooltipContainerState): void;
+    private readonly hasContent;
     render(): JSX.Element;
 }
