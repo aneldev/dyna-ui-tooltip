@@ -25,6 +25,7 @@ export enum ETooltipDirection {
 export interface IDynaTooltipProps {
 	style?: EStyle; // null for NONE style for custom style
 	color?: EColor; // null for NONE color for custom color
+	enabled?: boolean;
 	children: any;
 	tooltipContent: any;
 	tooltipDirection?: ETooltipDirection;
@@ -35,6 +36,7 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 	static defaultProps: IDynaTooltipProps = {
 		style: EStyle.ROUNDED,
 		color: EColor.WHITE_BLACK,
+		enabled: true,
 		children: null,
 		tooltipContent: null,
 		tooltipDirection: ETooltipDirection.SOUTH_EAST,
@@ -71,7 +73,7 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 	}
 
 	private handleGlobalScroll(event: Event): void {
-		if (this.tooltipComponent) this.tooltipComponent.update({show: false});
+		if ( this.tooltipComponent) this.tooltipComponent.update({show: false});
 	}
 
 	private updateTooltipFromProps(props: IDynaTooltipProps): void {
@@ -83,7 +85,9 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 	}
 
 	private handleMouseEnter(): void {
-		this.tooltipComponent.update({show: true});
+		if (this.props.enabled){
+			this.tooltipComponent.update({show: true});
+		}
 	}
 
 	private handleMouseLeave(): void {

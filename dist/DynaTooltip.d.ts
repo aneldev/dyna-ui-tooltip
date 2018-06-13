@@ -18,6 +18,7 @@ export declare enum ETooltipDirection {
 export interface IDynaTooltipProps {
     style?: EStyle;
     color?: EColor;
+    enabled?: boolean;
     children: any;
     tooltipContent: any;
     tooltipDirection?: ETooltipDirection;

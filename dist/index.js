@@ -148,7 +148,9 @@ var DynaTooltip = /** @class */ (function (_super) {
         });
     };
     DynaTooltip.prototype.handleMouseEnter = function () {
-        this.tooltipComponent.update({ show: true });
+        if (this.props.enabled) {
+            this.tooltipComponent.update({ show: true });
+        }
     };
     DynaTooltip.prototype.handleMouseLeave = function () {
         if (this.props._debug_doNotHide)
@@ -168,6 +170,7 @@ var DynaTooltip = /** @class */ (function (_super) {
     DynaTooltip.defaultProps = {
         style: EStyle.ROUNDED,
         color: dyna_ui_styles_1.EColor.WHITE_BLACK,
+        enabled: true,
         children: null,
         tooltipContent: null,
         tooltipDirection: ETooltipDirection.SOUTH_EAST,

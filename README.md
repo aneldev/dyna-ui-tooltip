@@ -10,10 +10,11 @@ Written in typescript, runs everywhere.
 
 ```
 interface IDynaTooltipProps {
-	style?: EStyle; // null for NONE style for custom style
-	color?: EColor; // null for NONE color for custom color
-	children: any;  // the content you want to have tooltip
-	tooltipContent: any; // the tooltip content, can be also react component
+	style?: EStyle;         // null for NONE style for custom style
+	color?: EColor;         // null for NONE color for custom color
+	enabled?: boolean;      // false to disable and no show tooltip of hover
+	children: any;          // the content you want to have tooltip
+	tooltipContent: any;    // the tooltip content, can be also react component
 	tooltipDirection?: ETooltipDirection;
 	_debug_doNotHide?: boolean; // set this to true to do not hide is and style it easier
 }
