@@ -121,7 +121,6 @@ var DynaTooltip = /** @class */ (function (_super) {
     }
     DynaTooltip.prototype.componentWillMount = function () {
         var _this = this;
-        console.debug('new viersion on tooltips v2');
         setTimeout(function () {
             if (_this.didUnmount)
                 return; // exit, in unmount, no need to create it
@@ -182,7 +181,7 @@ var DynaTooltip = /** @class */ (function (_super) {
         color: dyna_ui_styles_1.EColor.WHITE_BLACK,
         enabled: true,
         children: null,
-        delayCreationMs: 1000,
+        delayCreationMs: 500,
         tooltipContent: null,
         tooltipDirection: ETooltipDirection.SOUTH_EAST,
         _debug_doNotHide: false,
