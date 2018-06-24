@@ -50,7 +50,6 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 		super(props);
 		this.handleGlobalScroll = dynaDebounce(this.handleGlobalScroll.bind(this), 500);
 		this.handleGlobalMouseMove = dynaDebounce(this.handleGlobalMouseMove.bind(this), 500);
-		console.debug('tooltip version v3.2');
 	}
 
 	public refs: {
