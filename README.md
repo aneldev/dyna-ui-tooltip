@@ -12,6 +12,7 @@ Written in typescript, runs everywhere.
 interface IDynaTooltipProps {
 	style?: EStyle;         // null for NONE style for custom style
 	color?: EColor;         // null for NONE color for custom color
+	delayCrationMs?: number // (default 500ms) delay the creation of the tooltip on component mount (for better perfomance)
 	enabled?: boolean;      // false to disable and no show tooltip of hover
 	children: any;          // the content you want to have tooltip
 	tooltipContent: any;    // the tooltip content, can be also react component

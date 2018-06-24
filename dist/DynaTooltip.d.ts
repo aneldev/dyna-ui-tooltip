@@ -18,6 +18,7 @@ export declare enum ETooltipDirection {
 export interface IDynaTooltipProps {
     style?: EStyle;
     color?: EColor;
+    delayCreationMs?: number;
     enabled?: boolean;
     children: any;
     tooltipContent: any;
@@ -29,6 +30,7 @@ export declare class DynaTooltip extends React.Component<IDynaTooltipProps> {
     constructor(props: IDynaTooltipProps);
     private tooltipContainer;
     private tooltipComponent;
+    private didUnmount;
     componentWillMount(): void;
     private initializeTooltipComponent(tooltipComponent);
     componentWillUnmount(): void;

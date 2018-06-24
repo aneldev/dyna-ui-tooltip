@@ -115,22 +115,32 @@ var DynaTooltip = /** @class */ (function (_super) {
     __extends(DynaTooltip, _super);
     function DynaTooltip(props) {
         var _this = _super.call(this, props) || this;
+        _this.didUnmount = false;
         _this.handleGlobalScroll = _this.handleGlobalScroll.bind(_this);
         return _this;
     }
     DynaTooltip.prototype.componentWillMount = function () {
-        this.tooltipContainer = document.createElement('div');
-        document.querySelector('body').appendChild(this.tooltipContainer);
-        ReactDOM.render(React.createElement(TooltipContainer_1.TooltipContainer, { ref: this.initializeTooltipComponent.bind(this) }), this.tooltipContainer);
-        window.addEventListener('scroll', this.handleGlobalScroll, true);
+        var _this = this;
+        console.debug('new viersion on tooltips v2');
+        setTimeout(function () {
+            if (_this.didUnmount)
+                return; // exit, in unmount, no need to create it
+            _this.tooltipContainer = document.createElement('div');
+            document.querySelector('body').appendChild(_this.tooltipContainer);
+            ReactDOM.render(React.createElement(TooltipContainer_1.TooltipContainer, { ref: _this.initializeTooltipComponent.bind(_this) }), _this.tooltipContainer);
+            window.addEventListener('scroll', _this.handleGlobalScroll, true);
+        }, this.props.delayCreationMs);
     };
     DynaTooltip.prototype.initializeTooltipComponent = function (tooltipComponent) {
         this.tooltipComponent = tooltipComponent;
         this.updateTooltipFromProps(this.props);
     };
     DynaTooltip.prototype.componentWillUnmount = function () {
-        document.querySelector('body').removeChild(this.tooltipContainer);
-        window.removeEventListener('scroll', this.handleGlobalScroll);
+        this.didUnmount = true;
+        if (this.tooltipContainer) {
+            document.querySelector('body').removeChild(this.tooltipContainer);
+            window.removeEventListener('scroll', this.handleGlobalScroll);
+        }
     };
     DynaTooltip.prototype.componentWillReceiveProps = function (nextProps) {
         this.updateTooltipFromProps(nextProps);
@@ -172,6 +182,7 @@ var DynaTooltip = /** @class */ (function (_super) {
         color: dyna_ui_styles_1.EColor.WHITE_BLACK,
         enabled: true,
         children: null,
+        delayCreationMs: 1000,
         tooltipContent: null,
         tooltipDirection: ETooltipDirection.SOUTH_EAST,
         _debug_doNotHide: false,

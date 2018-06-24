@@ -25,6 +25,7 @@ export enum ETooltipDirection {
 export interface IDynaTooltipProps {
 	style?: EStyle; // null for NONE style for custom style
 	color?: EColor; // null for NONE color for custom color
+	delayCreationMs?: number;
 	enabled?: boolean;
 	children: any;
 	tooltipContent: any;
@@ -38,6 +39,7 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 		color: EColor.WHITE_BLACK,
 		enabled: true,
 		children: null,
+		delayCreationMs: 500,
 		tooltipContent: null,
 		tooltipDirection: ETooltipDirection.SOUTH_EAST,
 		_debug_doNotHide: false,
@@ -50,12 +52,16 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 
 	private tooltipContainer: HTMLDivElement;
 	private tooltipComponent: TooltipContainer;
+	private didUnmount: boolean = false;
 
 	public componentWillMount(): void {
-		this.tooltipContainer = document.createElement('div');
-		document.querySelector('body').appendChild(this.tooltipContainer);
-		ReactDOM.render(<TooltipContainer ref={this.initializeTooltipComponent.bind(this)}/>, this.tooltipContainer);
-		window.addEventListener('scroll', this.handleGlobalScroll, true);
+		setTimeout(() => {
+			if (this.didUnmount) return; // exit, in unmount, no need to create it
+			this.tooltipContainer = document.createElement('div');
+			document.querySelector('body').appendChild(this.tooltipContainer);
+			ReactDOM.render(<TooltipContainer ref={this.initializeTooltipComponent.bind(this)}/>, this.tooltipContainer);
+			window.addEventListener('scroll', this.handleGlobalScroll, true);
+		}, this.props.delayCreationMs);
 	}
 
 	private initializeTooltipComponent(tooltipComponent: TooltipContainer): void {
@@ -64,8 +70,11 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 	}
 
 	public componentWillUnmount(): void {
-		document.querySelector('body').removeChild(this.tooltipContainer);
-		window.removeEventListener('scroll', this.handleGlobalScroll);
+		this.didUnmount = true;
+		if (this.tooltipContainer) {
+			document.querySelector('body').removeChild(this.tooltipContainer);
+			window.removeEventListener('scroll', this.handleGlobalScroll);
+		}
 	}
 
 	public componentWillReceiveProps(nextProps: IDynaTooltipProps): void {
@@ -73,7 +82,7 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 	}
 
 	private handleGlobalScroll(event: Event): void {
-		if ( this.tooltipComponent) this.tooltipComponent.update({show: false});
+		if (this.tooltipComponent) this.tooltipComponent.update({show: false});
 	}
 
 	private updateTooltipFromProps(props: IDynaTooltipProps): void {
@@ -85,7 +94,7 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 	}
 
 	private handleMouseEnter(): void {
-		if (this.props.enabled){
+		if (this.props.enabled) {
 			this.tooltipComponent.update({show: true});
 		}
 	}
