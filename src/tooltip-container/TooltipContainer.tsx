@@ -38,6 +38,10 @@ export class TooltipContainer extends React.Component<ITooltipContainerProps, IT
 
 	private domDisplayTimer: any = null;
 
+	public get show(): boolean {
+		return this.state.show;
+	}
+
 	public update(state: ITooltipContainerState): void {
 		state = {...state};
 		const turnsToShow: boolean = this.state.show === false && state.show === true;

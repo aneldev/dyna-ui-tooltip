@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {EColor} from "dyna-ui-styles";
+import {dynaDebounce} from "dyna-debounce";
 
 import {TooltipContainer} from "./tooltip-container/TooltipContainer";
 
@@ -47,8 +48,14 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 
 	constructor(props: IDynaTooltipProps) {
 		super(props);
-		this.handleGlobalScroll = this.handleGlobalScroll.bind(this)
+		this.handleGlobalScroll = dynaDebounce(this.handleGlobalScroll.bind(this), 500);
+		this.handleGlobalMouseMove = dynaDebounce(this.handleGlobalMouseMove.bind(this), 500);
+		console.debug('tooltip version v3.2');
 	}
+
+	public refs: {
+		container: HTMLElement;
+	};
 
 	private tooltipContainer: HTMLDivElement;
 	private tooltipComponent: TooltipContainer;
@@ -61,6 +68,7 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 			document.querySelector('body').appendChild(this.tooltipContainer);
 			ReactDOM.render(<TooltipContainer ref={this.initializeTooltipComponent.bind(this)}/>, this.tooltipContainer);
 			window.addEventListener('scroll', this.handleGlobalScroll, true);
+			window.addEventListener('mousemove', this.handleGlobalMouseMove, true);
 		}, this.props.delayCreationMs);
 	}
 
@@ -74,6 +82,7 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 		if (this.tooltipContainer) {
 			document.querySelector('body').removeChild(this.tooltipContainer);
 			window.removeEventListener('scroll', this.handleGlobalScroll);
+			window.removeEventListener('mousemove', this.handleGlobalMouseMove);
 		}
 	}
 
@@ -83,6 +92,16 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 
 	private handleGlobalScroll(event: Event): void {
 		if (this.tooltipComponent) this.tooltipComponent.update({show: false});
+	}
+
+	private handleGlobalMouseMove(event: MouseEvent): void {
+		if (!this.tooltipComponent) return;
+		if (!this.tooltipComponent.show) return;
+		if (!this.refs.container) return;
+
+		if (!(event.target===this.refs.container || this.refs.container.contains(event.target as Node))){
+			this.tooltipComponent.update({show: false});
+		}
 	}
 
 	private updateTooltipFromProps(props: IDynaTooltipProps): void {
@@ -118,6 +137,7 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 
 		return (
 			<span
+				ref="container"
 				onMouseEnter={this.handleMouseEnter.bind(this)}
 				onMouseLeave={this.handleMouseLeave.bind(this)}
 				onMouseMove={this.handleMouseMove.bind(this)}

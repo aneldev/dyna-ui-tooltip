@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("dyna-ui-styles"), require("react-dom"));
+		module.exports = factory(require("react"), require("dyna-ui-styles"), require("react-dom"), require("dyna-debounce"));
 	else if(typeof define === 'function' && define.amd)
-		define("dyna-ui-tooltip", ["react", "dyna-ui-styles", "react-dom"], factory);
+		define("dyna-ui-tooltip", ["react", "dyna-ui-styles", "react-dom", "dyna-debounce"], factory);
 	else if(typeof exports === 'object')
-		exports["dyna-ui-tooltip"] = factory(require("react"), require("dyna-ui-styles"), require("react-dom"));
+		exports["dyna-ui-tooltip"] = factory(require("react"), require("dyna-ui-styles"), require("react-dom"), require("dyna-debounce"));
 	else
-		root["dyna-ui-tooltip"] = factory(root["react"], root["dyna-ui-styles"], root["react-dom"]);
-})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_5__) {
+		root["dyna-ui-tooltip"] = factory(root["react"], root["dyna-ui-styles"], root["react-dom"], root["dyna-debounce"]);
+})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_6__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -94,7 +94,8 @@ var React = __webpack_require__(1);
 var ReactDOM = __webpack_require__(5);
 var dyna_ui_styles_1 = __webpack_require__(2);
 exports.EColor = dyna_ui_styles_1.EColor;
-var TooltipContainer_1 = __webpack_require__(6);
+var dyna_debounce_1 = __webpack_require__(6);
+var TooltipContainer_1 = __webpack_require__(7);
 var EStyle;
 (function (EStyle) {
     EStyle["ROUNDED"] = "ROUNDED";
@@ -116,7 +117,9 @@ var DynaTooltip = /** @class */ (function (_super) {
     function DynaTooltip(props) {
         var _this = _super.call(this, props) || this;
         _this.didUnmount = false;
-        _this.handleGlobalScroll = _this.handleGlobalScroll.bind(_this);
+        _this.handleGlobalScroll = dyna_debounce_1.dynaDebounce(_this.handleGlobalScroll.bind(_this), 500);
+        _this.handleGlobalMouseMove = dyna_debounce_1.dynaDebounce(_this.handleGlobalMouseMove.bind(_this), 500);
+        console.debug('tooltip version v3.2');
         return _this;
     }
     DynaTooltip.prototype.componentWillMount = function () {
@@ -128,6 +131,7 @@ var DynaTooltip = /** @class */ (function (_super) {
             document.querySelector('body').appendChild(_this.tooltipContainer);
             ReactDOM.render(React.createElement(TooltipContainer_1.TooltipContainer, { ref: _this.initializeTooltipComponent.bind(_this) }), _this.tooltipContainer);
             window.addEventListener('scroll', _this.handleGlobalScroll, true);
+            window.addEventListener('mousemove', _this.handleGlobalMouseMove, true);
         }, this.props.delayCreationMs);
     };
     DynaTooltip.prototype.initializeTooltipComponent = function (tooltipComponent) {
@@ -139,6 +143,7 @@ var DynaTooltip = /** @class */ (function (_super) {
         if (this.tooltipContainer) {
             document.querySelector('body').removeChild(this.tooltipContainer);
             window.removeEventListener('scroll', this.handleGlobalScroll);
+            window.removeEventListener('mousemove', this.handleGlobalMouseMove);
         }
     };
     DynaTooltip.prototype.componentWillReceiveProps = function (nextProps) {
@@ -147,6 +152,17 @@ var DynaTooltip = /** @class */ (function (_super) {
     DynaTooltip.prototype.handleGlobalScroll = function (event) {
         if (this.tooltipComponent)
             this.tooltipComponent.update({ show: false });
+    };
+    DynaTooltip.prototype.handleGlobalMouseMove = function (event) {
+        if (!this.tooltipComponent)
+            return;
+        if (!this.tooltipComponent.show)
+            return;
+        if (!this.refs.container)
+            return;
+        if (!(event.target === this.refs.container || this.refs.container.contains(event.target))) {
+            this.tooltipComponent.update({ show: false });
+        }
     };
     DynaTooltip.prototype.updateTooltipFromProps = function (props) {
         if (!this.tooltipComponent)
@@ -174,7 +190,7 @@ var DynaTooltip = /** @class */ (function (_super) {
     };
     DynaTooltip.prototype.render = function () {
         var children = this.props.children;
-        return (React.createElement("span", { onMouseEnter: this.handleMouseEnter.bind(this), onMouseLeave: this.handleMouseLeave.bind(this), onMouseMove: this.handleMouseMove.bind(this) }, children));
+        return (React.createElement("span", { ref: "container", onMouseEnter: this.handleMouseEnter.bind(this), onMouseLeave: this.handleMouseLeave.bind(this), onMouseMove: this.handleMouseMove.bind(this) }, children));
     };
     DynaTooltip.defaultProps = {
         style: EStyle.ROUNDED,
@@ -232,6 +248,12 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_5__;
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -258,7 +280,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
 var dyna_ui_styles_1 = __webpack_require__(2);
 var DynaTooltip_1 = __webpack_require__(0);
-__webpack_require__(7);
+__webpack_require__(8);
 var animationDuration = 250; // same value 240852049
 var TooltipContainer = /** @class */ (function (_super) {
     __extends(TooltipContainer, _super);
@@ -276,6 +298,13 @@ var TooltipContainer = /** @class */ (function (_super) {
         };
         return _this;
     }
+    Object.defineProperty(TooltipContainer.prototype, "show", {
+        get: function () {
+            return this.state.show;
+        },
+        enumerable: true,
+        configurable: true
+    });
     TooltipContainer.prototype.update = function (state) {
         var _this = this;
         state = __assign({}, state);
@@ -335,13 +364,13 @@ exports.TooltipContainer = TooltipContainer;
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(8);
+var content = __webpack_require__(9);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -349,7 +378,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(10)(content, options);
+var update = __webpack_require__(11)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -366,10 +395,10 @@ if(false) {
 }
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(9)(false);
+exports = module.exports = __webpack_require__(10)(false);
 // imports
 
 
@@ -380,7 +409,7 @@ exports.push([module.i, ".dyna-tooltip-container {\n  position: fixed;\n  -webki
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -462,7 +491,7 @@ function toComment(sourceMap) {
 }
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -508,7 +537,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(11);
+var	fixUrls = __webpack_require__(12);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -821,7 +850,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
