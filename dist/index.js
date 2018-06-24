@@ -119,7 +119,6 @@ var DynaTooltip = /** @class */ (function (_super) {
         _this.didUnmount = false;
         _this.handleGlobalScroll = dyna_debounce_1.dynaDebounce(_this.handleGlobalScroll.bind(_this), 500);
         _this.handleGlobalMouseMove = dyna_debounce_1.dynaDebounce(_this.handleGlobalMouseMove.bind(_this), 500);
-        console.debug('tooltip version v3.2');
         return _this;
     }
     DynaTooltip.prototype.componentWillMount = function () {
