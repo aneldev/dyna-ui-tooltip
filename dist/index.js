@@ -119,7 +119,6 @@ var DynaTooltip = /** @class */ (function (_super) {
         _this.didUnmount = false;
         _this.handleGlobalScroll = dyna_debounce_1.dynaDebounce(_this.handleGlobalScroll.bind(_this), 500);
         _this.handleGlobalMouseMove = dyna_debounce_1.dynaDebounce(_this.handleGlobalMouseMove.bind(_this), 500);
-        console.debug('tooltip v4');
         return _this;
     }
     DynaTooltip.prototype.componentWillMount = function () {
@@ -178,9 +177,9 @@ var DynaTooltip = /** @class */ (function (_super) {
     DynaTooltip.prototype.handleMouseEnter = function () {
         if (!this.tooltipComponent)
             return;
-        if (!this.props.enabled)
-            return;
-        this.tooltipComponent.update({ show: true });
+        if (this.props.enabled) {
+            this.tooltipComponent.update({ show: true });
+        }
     };
     DynaTooltip.prototype.handleMouseLeave = function () {
         if (!this.tooltipComponent)
