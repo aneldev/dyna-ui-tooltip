@@ -86,11 +86,13 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 	}
 
 	public componentWillReceiveProps(nextProps: IDynaTooltipProps): void {
+		if (!this.tooltipComponent) return;
 		this.updateTooltipFromProps(nextProps);
 	}
 
 	private handleGlobalScroll(event: Event): void {
-		if (this.tooltipComponent) this.tooltipComponent.update({show: false});
+		if (!this.tooltipComponent) return;
+		this.tooltipComponent.update({show: false});
 	}
 
 	private handleGlobalMouseMove(event: MouseEvent): void {
@@ -112,17 +114,20 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 	}
 
 	private handleMouseEnter(): void {
+		if (!this.tooltipComponent) return;
 		if (this.props.enabled) {
 			this.tooltipComponent.update({show: true});
 		}
 	}
 
 	private handleMouseLeave(): void {
+		if (!this.tooltipComponent) return;
 		if (this.props._debug_doNotHide) return;
 		this.tooltipComponent.update({show: false});
 	}
 
 	private handleMouseMove(event: MouseEvent): void {
+		if (!this.tooltipComponent) return;
 		this.tooltipComponent.update({
 			x: event.clientX,
 			y: event.clientY,
