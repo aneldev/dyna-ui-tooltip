@@ -92,6 +92,7 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 
 	private handleGlobalScroll(event: Event): void {
 		if (!this.tooltipComponent) return;
+		if (this.props._debug_doNotHide) return;
 		this.tooltipComponent.update({show: false});
 	}
 
@@ -99,6 +100,7 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 		if (!this.tooltipComponent) return;
 		if (!this.tooltipComponent.show) return;
 		if (!this.refs.container) return;
+		if (this.props._debug_doNotHide) return;
 
 		if (!(event.target===this.refs.container || this.refs.container.contains(event.target as Node))){
 			this.tooltipComponent.update({show: false});
