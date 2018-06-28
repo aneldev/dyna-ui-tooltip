@@ -153,6 +153,8 @@ var DynaTooltip = /** @class */ (function (_super) {
     DynaTooltip.prototype.handleGlobalScroll = function (event) {
         if (!this.tooltipComponent)
             return;
+        if (this.props._debug_doNotHide)
+            return;
         this.tooltipComponent.update({ show: false });
     };
     DynaTooltip.prototype.handleGlobalMouseMove = function (event) {
@@ -161,6 +163,8 @@ var DynaTooltip = /** @class */ (function (_super) {
         if (!this.tooltipComponent.show)
             return;
         if (!this.refs.container)
+            return;
+        if (this.props._debug_doNotHide)
             return;
         if (!(event.target === this.refs.container || this.refs.container.contains(event.target))) {
             this.tooltipComponent.update({ show: false });
