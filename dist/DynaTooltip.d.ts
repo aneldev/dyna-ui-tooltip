@@ -2,7 +2,7 @@ import * as React from "react";
 import { EColor } from "dyna-ui-styles";
 export declare enum EStyle {
     ROUNDED = "ROUNDED",
-    FLATTED = "FLATTED",
+    FLATTED = "FLATTED"
 }
 export { EColor };
 export declare enum ETooltipDirection {
@@ -13,7 +13,7 @@ export declare enum ETooltipDirection {
     NORTH_EAST = "NORTH_EAST",
     NORTH_WEST = "NORTH_WEST",
     SOUTH_EAST = "SOUTH_EAST",
-    SOUTH_WEST = "SOUTH_WEST",
+    SOUTH_WEST = "SOUTH_WEST"
 }
 export interface IDynaTooltipProps {
     style?: EStyle;
@@ -35,14 +35,14 @@ export declare class DynaTooltip extends React.Component<IDynaTooltipProps> {
     private tooltipComponent;
     private didUnmount;
     componentWillMount(): void;
-    private initializeTooltipComponent(tooltipComponent);
+    private initializeTooltipComponent;
     componentWillUnmount(): void;
     componentWillReceiveProps(nextProps: IDynaTooltipProps): void;
-    private handleGlobalScroll(event);
-    private handleGlobalMouseMove(event);
-    private updateTooltipFromProps(props);
-    private handleMouseEnter();
-    private handleMouseLeave();
-    private handleMouseMove(event);
+    private handleGlobalScroll;
+    private handleGlobalMouseMove;
+    private updateTooltipFromProps;
+    private handleMouseEnter;
+    private handleMouseLeave;
+    private handleMouseMove;
     render(): JSX.Element;
 }
