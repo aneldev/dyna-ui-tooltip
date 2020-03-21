@@ -1,5 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { CSSProperties } from "react";
+
 import {EColor} from "dyna-ui-styles";
 import {dynaDebounce} from "dyna-debounce";
 
@@ -24,8 +26,11 @@ export enum ETooltipDirection {
 }
 
 export interface IDynaTooltipProps {
-	style?: EStyle; // null for NONE style for custom style
-	color?: EColor; // null for NONE color for custom color
+	className?: string;
+	nodeType?: string;          // default: span
+	nodeStyle?: CSSProperties;
+	style?: EStyle;             // null for NONE style for custom style
+	color?: EColor;             // null for NONE color for custom color
 	delayCreationMs?: number;
 	enabled?: boolean;
 	children: any;
@@ -138,16 +143,24 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 
 	public render(): JSX.Element {
 		const {
+			className,
+			nodeType,
+			nodeStyle,
 			children,
 		} = this.props;
 
+		const CustomNode = `${nodeType}` as any;
+
 		return (
-			<span
+			<CustomNode
+				className={className}
 				ref="container"
+				style={nodeStyle}
 				onMouseEnter={this.handleMouseEnter.bind(this)}
 				onMouseLeave={this.handleMouseLeave.bind(this)}
 				onMouseMove={this.handleMouseMove.bind(this)}
-			>{children}</span>
+			>{children}</CustomNode>
 		);
 	}
 }
+

@@ -201,8 +201,9 @@ var DynaTooltip = /** @class */ (function (_super) {
         });
     };
     DynaTooltip.prototype.render = function () {
-        var children = this.props.children;
-        return (React.createElement("span", { ref: "container", onMouseEnter: this.handleMouseEnter.bind(this), onMouseLeave: this.handleMouseLeave.bind(this), onMouseMove: this.handleMouseMove.bind(this) }, children));
+        var _a = this.props, className = _a.className, nodeType = _a.nodeType, nodeStyle = _a.nodeStyle, children = _a.children;
+        var CustomNode = "" + nodeType;
+        return (React.createElement(CustomNode, { className: className, ref: "container", style: nodeStyle, onMouseEnter: this.handleMouseEnter.bind(this), onMouseLeave: this.handleMouseLeave.bind(this), onMouseMove: this.handleMouseMove.bind(this) }, children));
     };
     DynaTooltip.defaultProps = {
         style: EStyle.ROUNDED,

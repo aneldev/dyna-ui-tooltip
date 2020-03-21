@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Home has expected content with deep render 1`] = `
-<span
+<undefined
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
   onMouseMove={[Function]}
 >
   My text
-</span>
+</undefined>
 `;
