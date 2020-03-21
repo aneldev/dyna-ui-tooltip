@@ -1,6 +1,6 @@
 import * as React from "react";
-import { EColor } from "dyna-ui-styles";
 import { CSSProperties } from "react";
+import { EColor } from "dyna-ui-styles";
 export declare enum EStyle {
     ROUNDED = "ROUNDED",
     FLATTED = "FLATTED"
