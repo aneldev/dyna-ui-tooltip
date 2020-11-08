@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("dyna-ui-styles"), require("react-dom"), require("dyna-debounce"));
+		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("dyna-ui-tooltip", ["react", "dyna-ui-styles", "react-dom", "dyna-debounce"], factory);
+		define("dyna-ui-tooltip", [], factory);
 	else if(typeof exports === 'object')
-		exports["dyna-ui-tooltip"] = factory(require("react"), require("dyna-ui-styles"), require("react-dom"), require("dyna-debounce"));
+		exports["dyna-ui-tooltip"] = factory();
 	else
-		root["dyna-ui-tooltip"] = factory(root["react"], root["dyna-ui-styles"], root["react-dom"], root["dyna-debounce"]);
-})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_6__) {
+		root["dyna-ui-tooltip"] = factory();
+})(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -46,12 +46,32 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -69,349 +89,22 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/less-loader/dist/cjs.js!./src/tooltip-container/TooltipContainer.less":
+/*!******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/postcss-loader/lib??ref--8-2!./node_modules/less-loader/dist/cjs.js!./src/tooltip-container/TooltipContainer.less ***!
+  \******************************************************************************************************************************************************************/
+/*! no static exports found */
+/*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(1);
-var ReactDOM = __webpack_require__(5);
-var dyna_ui_styles_1 = __webpack_require__(2);
-exports.EColor = dyna_ui_styles_1.EColor;
-var dyna_debounce_1 = __webpack_require__(6);
-var TooltipContainer_1 = __webpack_require__(7);
-var EStyle;
-(function (EStyle) {
-    EStyle["ROUNDED"] = "ROUNDED";
-    EStyle["FLATTED"] = "FLATTED";
-})(EStyle = exports.EStyle || (exports.EStyle = {}));
-var ETooltipDirection;
-(function (ETooltipDirection) {
-    ETooltipDirection["NORTH"] = "NORTH";
-    ETooltipDirection["EAST"] = "EAST";
-    ETooltipDirection["SOUTH"] = "SOUTH";
-    ETooltipDirection["WEST"] = "WEST";
-    ETooltipDirection["NORTH_EAST"] = "NORTH_EAST";
-    ETooltipDirection["NORTH_WEST"] = "NORTH_WEST";
-    ETooltipDirection["SOUTH_EAST"] = "SOUTH_EAST";
-    ETooltipDirection["SOUTH_WEST"] = "SOUTH_WEST";
-})(ETooltipDirection = exports.ETooltipDirection || (exports.ETooltipDirection = {}));
-var DynaTooltip = /** @class */ (function (_super) {
-    __extends(DynaTooltip, _super);
-    function DynaTooltip(props) {
-        var _this = _super.call(this, props) || this;
-        _this.didUnmount = false;
-        _this.handleGlobalScroll = dyna_debounce_1.dynaDebounce(_this.handleGlobalScroll.bind(_this), 500);
-        _this.handleGlobalMouseMove = dyna_debounce_1.dynaDebounce(_this.handleGlobalMouseMove.bind(_this), 500);
-        return _this;
-    }
-    DynaTooltip.prototype.componentWillMount = function () {
-        var _this = this;
-        setTimeout(function () {
-            if (_this.didUnmount)
-                return; // exit, in unmount, no need to create it
-            _this.tooltipContainer = document.createElement('div');
-            document.querySelector('body').appendChild(_this.tooltipContainer);
-            ReactDOM.render(React.createElement(TooltipContainer_1.TooltipContainer, { ref: _this.initializeTooltipComponent.bind(_this) }), _this.tooltipContainer);
-            window.addEventListener('scroll', _this.handleGlobalScroll, true);
-            window.addEventListener('mousemove', _this.handleGlobalMouseMove, true);
-        }, this.props.delayCreationMs);
-    };
-    DynaTooltip.prototype.initializeTooltipComponent = function (tooltipComponent) {
-        this.tooltipComponent = tooltipComponent;
-        this.updateTooltipFromProps(this.props);
-    };
-    DynaTooltip.prototype.componentWillUnmount = function () {
-        this.didUnmount = true;
-        if (this.tooltipContainer) {
-            document.querySelector('body').removeChild(this.tooltipContainer);
-            window.removeEventListener('scroll', this.handleGlobalScroll);
-            window.removeEventListener('mousemove', this.handleGlobalMouseMove);
-        }
-    };
-    DynaTooltip.prototype.componentWillReceiveProps = function (nextProps) {
-        if (!this.tooltipComponent)
-            return;
-        this.updateTooltipFromProps(nextProps);
-    };
-    DynaTooltip.prototype.handleGlobalScroll = function (event) {
-        if (!this.tooltipComponent)
-            return;
-        if (this.props._debug_doNotHide)
-            return;
-        this.tooltipComponent.update({ show: false });
-    };
-    DynaTooltip.prototype.handleGlobalMouseMove = function (event) {
-        if (!this.tooltipComponent)
-            return;
-        if (!this.tooltipComponent.show)
-            return;
-        if (!this.refs.container)
-            return;
-        if (this.props._debug_doNotHide)
-            return;
-        if (!(event.target === this.refs.container || this.refs.container.contains(event.target))) {
-            this.tooltipComponent.update({ show: false });
-        }
-    };
-    DynaTooltip.prototype.updateTooltipFromProps = function (props) {
-        if (!this.tooltipComponent)
-            return; // is not yet rendered
-        var style = props.style, color = props.color, tooltipContent = props.tooltipContent, tooltipDirection = props.tooltipDirection;
-        this.tooltipComponent.update({
-            style: style, color: color, content: tooltipContent, direction: tooltipDirection,
-        });
-    };
-    DynaTooltip.prototype.handleMouseEnter = function () {
-        if (!this.tooltipComponent)
-            return;
-        if (this.props.enabled) {
-            this.tooltipComponent.update({ show: true });
-        }
-    };
-    DynaTooltip.prototype.handleMouseLeave = function () {
-        if (!this.tooltipComponent)
-            return;
-        if (this.props._debug_doNotHide)
-            return;
-        this.tooltipComponent.update({ show: false });
-    };
-    DynaTooltip.prototype.handleMouseMove = function (event) {
-        if (!this.tooltipComponent)
-            return;
-        this.tooltipComponent.update({
-            x: event.clientX,
-            y: event.clientY,
-        });
-    };
-    DynaTooltip.prototype.render = function () {
-        var _a = this.props, className = _a.className, nodeType = _a.nodeType, nodeStyle = _a.nodeStyle, children = _a.children;
-        var CustomNode = "" + nodeType;
-        return (React.createElement(CustomNode, { className: className, ref: "container", style: nodeStyle, onMouseEnter: this.handleMouseEnter.bind(this), onMouseLeave: this.handleMouseLeave.bind(this), onMouseMove: this.handleMouseMove.bind(this) }, children));
-    };
-    DynaTooltip.defaultProps = {
-        style: EStyle.ROUNDED,
-        color: dyna_ui_styles_1.EColor.WHITE_BLACK,
-        enabled: true,
-        children: null,
-        delayCreationMs: 500,
-        tooltipContent: null,
-        tooltipDirection: ETooltipDirection.SOUTH_EAST,
-        _debug_doNotHide: false,
-    };
-    return DynaTooltip;
-}(React.Component));
-exports.DynaTooltip = DynaTooltip;
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(4);
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var DynaTooltip_1 = __webpack_require__(0);
-exports.DynaTooltip = DynaTooltip_1.DynaTooltip;
-exports.EStyle = DynaTooltip_1.EStyle;
-exports.EColor = DynaTooltip_1.EColor;
-exports.ETooltipDirection = DynaTooltip_1.ETooltipDirection;
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_5__;
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(1);
-var dyna_ui_styles_1 = __webpack_require__(2);
-var DynaTooltip_1 = __webpack_require__(0);
-__webpack_require__(8);
-var animationDuration = 250; // same value 240852049
-var TooltipContainer = /** @class */ (function (_super) {
-    __extends(TooltipContainer, _super);
-    function TooltipContainer(props) {
-        var _this = _super.call(this, props) || this;
-        _this.domDisplayTimer = null;
-        _this.state = {
-            show: false,
-            x: 0, y: 0,
-            direction: DynaTooltip_1.ETooltipDirection.SOUTH_EAST,
-            style: DynaTooltip_1.EStyle.ROUNDED,
-            color: dyna_ui_styles_1.EColor.WHITE_BLACK,
-            content: null,
-            _domDisplay: false,
-        };
-        return _this;
-    }
-    Object.defineProperty(TooltipContainer.prototype, "show", {
-        get: function () {
-            return this.state.show;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    TooltipContainer.prototype.update = function (state) {
-        var _this = this;
-        state = __assign({}, state);
-        var turnsToShow = this.state.show === false && state.show === true;
-        var turnsToHide = this.state.show === true && state.show === false;
-        if (turnsToShow) {
-            if (this.domDisplayTimer !== null)
-                clearTimeout(this.domDisplayTimer);
-            this.domDisplayTimer = null;
-            state._domDisplay = true;
-            state.show = false;
-            setTimeout(function () {
-                _this.setState({ show: true });
-            }, 10);
-        }
-        this.setState(state);
-        if (turnsToHide) {
-            this.domDisplayTimer = setTimeout(function () {
-                _this.domDisplayTimer = null;
-                _this.setState({ _domDisplay: false });
-            }, animationDuration);
-        }
-    };
-    Object.defineProperty(TooltipContainer.prototype, "hasContent", {
-        get: function () {
-            var content = this.state.content;
-            if (Array.isArray(content))
-                return !!content.filter(function (v) { return !!v; }).length;
-            else
-                return !!content;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    TooltipContainer.prototype.render = function () {
-        var _a = this.state, show = _a.show, x = _a.x, y = _a.y, direction = _a.direction, style = _a.style, color = _a.color, content = _a.content, _domDisplay = _a._domDisplay;
-        if (!this.hasContent)
-            return null;
-        if (!_domDisplay)
-            return null;
-        var divStyle = {
-            top: y,
-            left: x,
-        };
-        var className = [
-            "dyna-tooltip-container",
-            "dyna-tooltip-container--direction-" + direction,
-            "dyna-tooltip-container--display-" + (show ? "SHOW" : "HIDE"),
-            "dyna-tooltip-container--style-" + (style || "NONE"),
-            "dyna-tooltip-container--color-" + (color || "NONE"),
-        ].join(' ').trim();
-        return (React.createElement("div", { className: className, style: divStyle }, content));
-    };
-    return TooltipContainer;
-}(React.Component));
-exports.TooltipContainer = TooltipContainer;
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(9);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(11)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/postcss-loader/lib/index.js??ref--4-2!../../node_modules/less-loader/dist/cjs.js!./TooltipContainer.less", function() {
-			var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/postcss-loader/lib/index.js??ref--4-2!../../node_modules/less-loader/dist/cjs.js!./TooltipContainer.less");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(10)(false);
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -422,11 +115,14 @@ exports.push([module.i, ".dyna-tooltip-container {\n  position: fixed;\n  -webki
 
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
 
 /*
 	MIT License http://www.opensource.org/licenses/mit-license.php
@@ -434,77 +130,86 @@ exports.push([module.i, ".dyna-tooltip-container {\n  position: fixed;\n  -webki
 */
 // css base code, injected by the css-loader
 module.exports = function (useSourceMap) {
-	var list = [];
+  var list = []; // return the list of modules as css string
 
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if (item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
+  list.toString = function toString() {
+    return this.map(function (item) {
+      var content = cssWithMappingToString(item, useSourceMap);
 
-	// import a list of modules into the list
-	list.i = function (modules, mediaQuery) {
-		if (typeof modules === "string") modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for (var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if (typeof id === "number") alreadyImportedModules[id] = true;
-		}
-		for (i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if (typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if (mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if (mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
+      if (item[2]) {
+        return "@media " + item[2] + "{" + content + "}";
+      } else {
+        return content;
+      }
+    }).join("");
+  }; // import a list of modules into the list
+
+
+  list.i = function (modules, mediaQuery) {
+    if (typeof modules === "string") modules = [[null, modules, ""]];
+    var alreadyImportedModules = {};
+
+    for (var i = 0; i < this.length; i++) {
+      var id = this[i][0];
+      if (typeof id === "number") alreadyImportedModules[id] = true;
+    }
+
+    for (i = 0; i < modules.length; i++) {
+      var item = modules[i]; // skip already imported module
+      // this implementation is not 100% perfect for weird media query combinations
+      //  when a module is imported multiple times with different media queries.
+      //  I hope this will never occur (Hey this way we have smaller bundles)
+
+      if (typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+        if (mediaQuery && !item[2]) {
+          item[2] = mediaQuery;
+        } else if (mediaQuery) {
+          item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+        }
+
+        list.push(item);
+      }
+    }
+  };
+
+  return list;
 };
 
 function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
+  var content = item[1] || '';
+  var cssMapping = item[3];
 
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */';
-		});
+  if (!cssMapping) {
+    return content;
+  }
 
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
+  if (useSourceMap && typeof btoa === 'function') {
+    var sourceMapping = toComment(cssMapping);
+    var sourceURLs = cssMapping.sources.map(function (source) {
+      return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */';
+    });
+    return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+  }
 
-	return [content].join('\n');
-}
+  return [content].join('\n');
+} // Adapted from convert-source-map (MIT)
 
-// Adapted from convert-source-map (MIT)
+
 function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
+  // eslint-disable-next-line no-undef
+  var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+  var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+  return '/*# ' + data + ' */';
 }
 
 /***/ }),
-/* 11 */
+
+/***/ "./node_modules/style-loader/lib/addStyles.js":
+/*!****************************************************!*\
+  !*** ./node_modules/style-loader/lib/addStyles.js ***!
+  \****************************************************/
+/*! no static exports found */
+/*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -532,25 +237,48 @@ var isOldIE = memoize(function () {
 	return window && document && document.all && !window.atob;
 });
 
+var getTarget = function (target, parent) {
+  if (parent){
+    return parent.querySelector(target);
+  }
+  return document.querySelector(target);
+};
+
 var getElement = (function (fn) {
 	var memo = {};
 
-	return function(selector) {
-		if (typeof memo[selector] === "undefined") {
-			memo[selector] = fn.call(this, selector);
+	return function(target, parent) {
+                // If passing function in options, then use it for resolve "head" element.
+                // Useful for Shadow Root style i.e
+                // {
+                //   insertInto: function () { return document.querySelector("#foo").shadowRoot }
+                // }
+                if (typeof target === 'function') {
+                        return target();
+                }
+                if (typeof memo[target] === "undefined") {
+			var styleTarget = getTarget.call(this, target, parent);
+			// Special case to return head of iframe instead of iframe itself
+			if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+				try {
+					// This will throw an exception if access to iframe is blocked
+					// due to cross-origin restrictions
+					styleTarget = styleTarget.contentDocument.head;
+				} catch(e) {
+					styleTarget = null;
+				}
+			}
+			memo[target] = styleTarget;
 		}
-
-		return memo[selector]
+		return memo[target]
 	};
-})(function (target) {
-	return document.querySelector(target)
-});
+})();
 
 var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(12);
+var	fixUrls = __webpack_require__(/*! ./urls */ "./node_modules/style-loader/lib/urls.js");
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -563,10 +291,10 @@ module.exports = function(list, options) {
 
 	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
 	// tags it will allow on a page
-	if (!options.singleton) options.singleton = isOldIE();
+	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
 
 	// By default, add <style> tags to the <head> element
-	if (!options.insertInto) options.insertInto = "head";
+        if (!options.insertInto) options.insertInto = "head";
 
 	// By default, add <style> tags to the bottom of the target
 	if (!options.insertAt) options.insertAt = "bottom";
@@ -669,8 +397,11 @@ function insertStyleElement (options, style) {
 		stylesInsertedAtTop.push(style);
 	} else if (options.insertAt === "bottom") {
 		target.appendChild(style);
+	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
+		var nextSibling = getElement(options.insertAt.before, target);
+		target.insertBefore(style, nextSibling);
 	} else {
-		throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
 	}
 }
 
@@ -687,7 +418,16 @@ function removeStyleElement (style) {
 function createStyleElement (options) {
 	var style = document.createElement("style");
 
-	options.attrs.type = "text/css";
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+
+	if(options.attrs.nonce === undefined) {
+		var nonce = getNonce();
+		if (nonce) {
+			options.attrs.nonce = nonce;
+		}
+	}
 
 	addAttrs(style, options.attrs);
 	insertStyleElement(options, style);
@@ -698,7 +438,9 @@ function createStyleElement (options) {
 function createLinkElement (options) {
 	var link = document.createElement("link");
 
-	options.attrs.type = "text/css";
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
 	options.attrs.rel = "stylesheet";
 
 	addAttrs(link, options.attrs);
@@ -713,12 +455,20 @@ function addAttrs (el, attrs) {
 	});
 }
 
+function getNonce() {
+	if (false) {}
+
+	return __webpack_require__.nc;
+}
+
 function addStyle (obj, options) {
 	var style, update, remove, result;
 
 	// If a transform function was defined, run it on the css
 	if (options.transform && obj.css) {
-	    result = options.transform(obj.css);
+	    result = typeof options.transform === 'function'
+		 ? options.transform(obj.css) 
+		 : options.transform.default(obj.css);
 
 	    if (result) {
 	    	// If transform returns a value, use that instead of the original css.
@@ -863,11 +613,14 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
+/***/ "./node_modules/style-loader/lib/urls.js":
+/*!***********************************************!*\
+  !*** ./node_modules/style-loader/lib/urls.js ***!
+  \***********************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
 
 /**
  * When source maps are enabled, `style-loader` uses a link element with a data-uri to
@@ -881,82 +634,738 @@ function updateLink (link, options, obj) {
  * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
  *
  */
-
 module.exports = function (css) {
-	// get current location
-	var location = typeof window !== "undefined" && window.location;
+  // get current location
+  var location = typeof window !== "undefined" && window.location;
 
-	if (!location) {
-		throw new Error("fixUrls requires window.location");
-	}
+  if (!location) {
+    throw new Error("fixUrls requires window.location");
+  } // blank or null?
 
-	// blank or null?
-	if (!css || typeof css !== "string") {
-		return css;
-	}
 
-	var baseUrl = location.protocol + "//" + location.host;
-	var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+  if (!css || typeof css !== "string") {
+    return css;
+  }
 
-	// convert each url(...)
-	/*
- This regular expression is just a way to recursively match brackets within
- a string.
- 	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
-    (  = Start a capturing group
-      (?:  = Start a non-capturing group
-          [^)(]  = Match anything that isn't a parentheses
-          |  = OR
-          \(  = Match a start parentheses
-              (?:  = Start another non-capturing groups
-                  [^)(]+  = Match anything that isn't a parentheses
-                  |  = OR
-                  \(  = Match a start parentheses
-                      [^)(]*  = Match anything that isn't a parentheses
-                  \)  = Match a end parentheses
-              )  = End Group
-              *\) = Match anything and then a close parens
-          )  = Close non-capturing group
-          *  = Match anything
-       )  = Close capturing group
-  \)  = Match a close parens
- 	 /gi  = Get all matches, not the first.  Be case insensitive.
-  */
-	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function (fullMatch, origUrl) {
-		// strip quotes (if they exist)
-		var unquotedOrigUrl = origUrl.trim().replace(/^"(.*)"$/, function (o, $1) {
-			return $1;
-		}).replace(/^'(.*)'$/, function (o, $1) {
-			return $1;
-		});
+  var baseUrl = location.protocol + "//" + location.host;
+  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/"); // convert each url(...)
 
-		// already a full url? no change
-		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/)/i.test(unquotedOrigUrl)) {
-			return fullMatch;
-		}
+  /*
+  This regular expression is just a way to recursively match brackets within
+  a string.
+  	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+     (  = Start a capturing group
+       (?:  = Start a non-capturing group
+           [^)(]  = Match anything that isn't a parentheses
+           |  = OR
+           \(  = Match a start parentheses
+               (?:  = Start another non-capturing groups
+                   [^)(]+  = Match anything that isn't a parentheses
+                   |  = OR
+                   \(  = Match a start parentheses
+                       [^)(]*  = Match anything that isn't a parentheses
+                   \)  = Match a end parentheses
+               )  = End Group
+               *\) = Match anything and then a close parens
+           )  = Close non-capturing group
+           *  = Match anything
+        )  = Close capturing group
+   \)  = Match a close parens
+  	 /gi  = Get all matches, not the first.  Be case insensitive.
+   */
 
-		// convert the url to a full url
-		var newUrl;
+  var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function (fullMatch, origUrl) {
+    // strip quotes (if they exist)
+    var unquotedOrigUrl = origUrl.trim().replace(/^"(.*)"$/, function (o, $1) {
+      return $1;
+    }).replace(/^'(.*)'$/, function (o, $1) {
+      return $1;
+    }); // already a full url? no change
 
-		if (unquotedOrigUrl.indexOf("//") === 0) {
-			//TODO: should we add protocol?
-			newUrl = unquotedOrigUrl;
-		} else if (unquotedOrigUrl.indexOf("/") === 0) {
-			// path should be relative to the base url
-			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
-		} else {
-			// path should be relative to current directory
-			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
-		}
+    if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(unquotedOrigUrl)) {
+      return fullMatch;
+    } // convert the url to a full url
 
-		// send back the fixed url(...)
-		return "url(" + JSON.stringify(newUrl) + ")";
-	});
 
-	// send back the fixed css
-	return fixedCss;
+    var newUrl;
+
+    if (unquotedOrigUrl.indexOf("//") === 0) {
+      //TODO: should we add protocol?
+      newUrl = unquotedOrigUrl;
+    } else if (unquotedOrigUrl.indexOf("/") === 0) {
+      // path should be relative to the base url
+      newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+    } else {
+      // path should be relative to current directory
+      newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+    } // send back the fixed url(...)
+
+
+    return "url(" + JSON.stringify(newUrl) + ")";
+  }); // send back the fixed css
+
+  return fixedCss;
 };
 
-/***/ })
-/******/ ]);
+/***/ }),
+
+/***/ "./node_modules/webpack/buildin/module.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/module.js ***!
+  \***********************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = function (module) {
+  if (!module.webpackPolyfill) {
+    module.deprecate = function () {};
+
+    module.paths = []; // module.parent = undefined by default
+
+    if (!module.children) module.children = [];
+    Object.defineProperty(module, "loaded", {
+      enumerable: true,
+      get: function () {
+        return module.l;
+      }
+    });
+    Object.defineProperty(module, "id", {
+      enumerable: true,
+      get: function () {
+        return module.i;
+      }
+    });
+    module.webpackPolyfill = 1;
+  }
+
+  return module;
+};
+
+/***/ }),
+
+/***/ "./src/DynaTooltip.tsx":
+/*!*****************************!*\
+  !*** ./src/DynaTooltip.tsx ***!
+  \*****************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {
+
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal["default"].signature : function (a) {
+  return a;
+};
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
+
+var React = __webpack_require__(/*! react */ "react");
+
+var ReactDOM = __webpack_require__(/*! react-dom */ "react-dom");
+
+var dyna_debounce_1 = __webpack_require__(/*! dyna-debounce */ "dyna-debounce");
+
+var interfaces_1 = __webpack_require__(/*! ./interfaces */ "./src/interfaces.ts");
+
+var TooltipContainer_1 = __webpack_require__(/*! ./tooltip-container/TooltipContainer */ "./src/tooltip-container/TooltipContainer.tsx");
+
+var DynaTooltip =
+/** @class */
+function (_super) {
+  __extends(DynaTooltip, _super);
+
+  function DynaTooltip(props) {
+    var _this = _super.call(this, props) || this;
+
+    _this.didUnmount = false;
+    _this.handleGlobalScroll = dyna_debounce_1.dynaDebounce(_this.handleGlobalScroll.bind(_this), 500);
+    _this.handleGlobalMouseMove = dyna_debounce_1.dynaDebounce(_this.handleGlobalMouseMove.bind(_this), 500);
+    return _this;
+  }
+
+  DynaTooltip.prototype.componentWillMount = function () {
+    var _this = this;
+
+    setTimeout(function () {
+      if (_this.didUnmount) return; // exit, in unmount, no need to create it
+
+      _this.tooltipContainer = document.createElement('div');
+      document.body ? document.body.appendChild(_this.tooltipContainer) : console.error('DynaTooltip error: <body> tag not ground!');
+      ReactDOM.render(React.createElement(TooltipContainer_1.TooltipContainer, {
+        ref: _this.initializeTooltipComponent.bind(_this)
+      }), _this.tooltipContainer);
+      window.addEventListener('scroll', _this.handleGlobalScroll, true);
+      window.addEventListener('mousemove', _this.handleGlobalMouseMove, true);
+    }, this.props.delayCreationMs);
+  };
+
+  DynaTooltip.prototype.initializeTooltipComponent = function (tooltipComponent) {
+    this.tooltipComponent = tooltipComponent;
+    this.updateTooltipFromProps(this.props);
+  };
+
+  DynaTooltip.prototype.componentWillUnmount = function () {
+    this.didUnmount = true;
+
+    if (this.tooltipContainer) {
+      document.body && document.body.removeChild(this.tooltipContainer);
+      window.removeEventListener('scroll', this.handleGlobalScroll);
+      window.removeEventListener('mousemove', this.handleGlobalMouseMove);
+    }
+  };
+
+  DynaTooltip.prototype.componentWillReceiveProps = function (nextProps) {
+    if (!this.tooltipComponent) return;
+    this.updateTooltipFromProps(nextProps);
+  };
+
+  DynaTooltip.prototype.handleGlobalScroll = function () {
+    if (!this.tooltipComponent) return;
+    if (this.props._debug_doNotHide) return;
+    this.tooltipComponent.update({
+      show: false
+    });
+  };
+
+  DynaTooltip.prototype.handleGlobalMouseMove = function (event) {
+    if (!this.tooltipComponent) return;
+    if (!this.tooltipComponent.show) return;
+    if (!this.refs.container) return;
+    if (this.props._debug_doNotHide) return;
+
+    if (!(event.target === this.refs.container || this.refs.container.contains(event.target))) {
+      this.tooltipComponent.update({
+        show: false
+      });
+    }
+  };
+
+  DynaTooltip.prototype.updateTooltipFromProps = function (props) {
+    if (!this.tooltipComponent) return; // is not yet rendered
+
+    var style = props.style,
+        color = props.color,
+        tooltipContent = props.tooltipContent,
+        tooltipDirection = props.tooltipDirection;
+    this.tooltipComponent.update({
+      style: style,
+      color: color,
+      content: tooltipContent,
+      direction: tooltipDirection
+    });
+  };
+
+  DynaTooltip.prototype.handleMouseEnter = function () {
+    if (!this.tooltipComponent) return;
+
+    if (this.props.enabled) {
+      this.tooltipComponent.update({
+        show: true
+      });
+    }
+  };
+
+  DynaTooltip.prototype.handleMouseLeave = function () {
+    if (!this.tooltipComponent) return;
+    if (this.props._debug_doNotHide) return;
+    this.tooltipComponent.update({
+      show: false
+    });
+  };
+
+  DynaTooltip.prototype.handleMouseMove = function (event) {
+    if (!this.tooltipComponent) return;
+    this.tooltipComponent.update({
+      x: event.clientX,
+      y: event.clientY
+    });
+  };
+
+  DynaTooltip.prototype.render = function () {
+    var _a = this.props,
+        className = _a.className,
+        _b = _a.nodeType,
+        nodeType = _b === void 0 ? 'span' : _b,
+        nodeStyle = _a.nodeStyle,
+        children = _a.children;
+    var CustomNode = "" + nodeType;
+    return React.createElement(CustomNode, {
+      className: className,
+      ref: "container",
+      style: nodeStyle,
+      onMouseEnter: this.handleMouseEnter.bind(this),
+      onMouseLeave: this.handleMouseLeave.bind(this),
+      onMouseMove: this.handleMouseMove.bind(this)
+    }, children);
+  };
+
+  DynaTooltip.defaultProps = {
+    style: interfaces_1.EStyle.ROUNDED,
+    color: interfaces_1.EColor.WHITE_BLACK,
+    enabled: true,
+    children: null,
+    delayCreationMs: 500,
+    tooltipContent: null,
+    tooltipDirection: interfaces_1.ETooltipDirection.SOUTH_EAST,
+    _debug_doNotHide: false
+  };
+  return DynaTooltip;
+}(React.Component);
+
+exports.DynaTooltip = DynaTooltip;
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(__extends, "__extends", "/Users/dennisat/dev/dyna/dyna-ui-tooltip/src/DynaTooltip.tsx");
+  reactHotLoader.register(DynaTooltip, "DynaTooltip", "/Users/dennisat/dev/dyna/dyna-ui-tooltip/src/DynaTooltip.tsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
+/***/ "./src/index.tsx":
+/*!***********************!*\
+  !*** ./src/index.tsx ***!
+  \***********************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal["default"].signature : function (a) {
+  return a;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var DynaTooltip_1 = __webpack_require__(/*! ./DynaTooltip */ "./src/DynaTooltip.tsx");
+
+exports.DynaTooltip = DynaTooltip_1.DynaTooltip;
+
+var interfaces_1 = __webpack_require__(/*! ./interfaces */ "./src/interfaces.ts");
+
+exports.EStyle = interfaces_1.EStyle;
+exports.EColor = interfaces_1.EColor;
+exports.ETooltipDirection = interfaces_1.ETooltipDirection;
+
+/***/ }),
+
+/***/ "./src/interfaces.ts":
+/*!***************************!*\
+  !*** ./src/interfaces.ts ***!
+  \***************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {
+
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal["default"].signature : function (a) {
+  return a;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var dyna_ui_styles_1 = __webpack_require__(/*! dyna-ui-styles */ "dyna-ui-styles");
+
+exports.EColor = dyna_ui_styles_1.EColor;
+var EStyle;
+
+(function (EStyle) {
+  EStyle["ROUNDED"] = "ROUNDED";
+  EStyle["FLATTED"] = "FLATTED";
+})(EStyle = exports.EStyle || (exports.EStyle = {}));
+
+var ETooltipDirection;
+
+(function (ETooltipDirection) {
+  ETooltipDirection["NORTH"] = "NORTH";
+  ETooltipDirection["EAST"] = "EAST";
+  ETooltipDirection["SOUTH"] = "SOUTH";
+  ETooltipDirection["WEST"] = "WEST";
+  ETooltipDirection["NORTH_EAST"] = "NORTH_EAST";
+  ETooltipDirection["NORTH_WEST"] = "NORTH_WEST";
+  ETooltipDirection["SOUTH_EAST"] = "SOUTH_EAST";
+  ETooltipDirection["SOUTH_WEST"] = "SOUTH_WEST";
+})(ETooltipDirection = exports.ETooltipDirection || (exports.ETooltipDirection = {}));
+
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(EStyle, "EStyle", "/Users/dennisat/dev/dyna/dyna-ui-tooltip/src/interfaces.ts");
+  reactHotLoader.register(ETooltipDirection, "ETooltipDirection", "/Users/dennisat/dev/dyna/dyna-ui-tooltip/src/interfaces.ts");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
+/***/ "./src/tooltip-container/TooltipContainer.less":
+/*!*****************************************************!*\
+  !*** ./src/tooltip-container/TooltipContainer.less ***!
+  \*****************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/postcss-loader/lib??ref--8-2!../../node_modules/less-loader/dist/cjs.js!./TooltipContainer.less */ "./node_modules/css-loader/index.js!./node_modules/postcss-loader/lib/index.js?!./node_modules/less-loader/dist/cjs.js!./src/tooltip-container/TooltipContainer.less");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./src/tooltip-container/TooltipContainer.tsx":
+/*!****************************************************!*\
+  !*** ./src/tooltip-container/TooltipContainer.tsx ***!
+  \****************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {
+
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal["default"].signature : function (a) {
+  return a;
+};
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+var __assign = this && this.__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var React = __webpack_require__(/*! react */ "react");
+
+var dyna_ui_styles_1 = __webpack_require__(/*! dyna-ui-styles */ "dyna-ui-styles");
+
+var interfaces_1 = __webpack_require__(/*! ../interfaces */ "./src/interfaces.ts");
+
+__webpack_require__(/*! ./TooltipContainer.less */ "./src/tooltip-container/TooltipContainer.less");
+
+var animationDuration = 250; // same value 240852049
+
+var TooltipContainer =
+/** @class */
+function (_super) {
+  __extends(TooltipContainer, _super);
+
+  function TooltipContainer(props) {
+    var _this = _super.call(this, props) || this;
+
+    _this.domDisplayTimer = null;
+    _this.state = {
+      show: false,
+      x: 0,
+      y: 0,
+      direction: interfaces_1.ETooltipDirection.SOUTH_EAST,
+      style: interfaces_1.EStyle.ROUNDED,
+      color: dyna_ui_styles_1.EColor.WHITE_BLACK,
+      content: null,
+      _domDisplay: false
+    };
+    return _this;
+  }
+
+  Object.defineProperty(TooltipContainer.prototype, "show", {
+    get: function get() {
+      return this.state.show;
+    },
+    enumerable: true,
+    configurable: true
+  });
+
+  TooltipContainer.prototype.update = function (state) {
+    var _this = this;
+
+    var newState = __assign({}, state);
+
+    var turnsToShow = this.state.show === false && newState.show === true;
+    var turnsToHide = this.state.show === true && newState.show === false;
+
+    if (turnsToShow) {
+      if (this.domDisplayTimer !== null) clearTimeout(this.domDisplayTimer);
+      this.domDisplayTimer = null;
+      newState._domDisplay = true;
+      newState.show = false;
+      setTimeout(function () {
+        _this.setState({
+          show: true
+        });
+      }, 10);
+    }
+
+    this.setState(newState);
+
+    if (turnsToHide) {
+      this.domDisplayTimer = setTimeout(function () {
+        _this.domDisplayTimer = null;
+
+        _this.setState({
+          _domDisplay: false
+        });
+      }, animationDuration);
+    }
+  };
+
+  Object.defineProperty(TooltipContainer.prototype, "hasContent", {
+    get: function get() {
+      var content = this.state.content;
+      if (Array.isArray(content)) return !!content.filter(function (v) {
+        return !!v;
+      }).length;else return !!content;
+    },
+    enumerable: true,
+    configurable: true
+  });
+
+  TooltipContainer.prototype.render = function () {
+    var _a = this.state,
+        show = _a.show,
+        x = _a.x,
+        y = _a.y,
+        direction = _a.direction,
+        style = _a.style,
+        color = _a.color,
+        content = _a.content,
+        _domDisplay = _a._domDisplay;
+    if (!this.hasContent) return null;
+    if (!_domDisplay) return null;
+    var divStyle = {
+      top: y,
+      left: x
+    };
+    var className = ["dyna-tooltip-container", "dyna-tooltip-container--direction-" + direction, "dyna-tooltip-container--display-" + (show ? "SHOW" : "HIDE"), "dyna-tooltip-container--style-" + (style || "NONE"), "dyna-tooltip-container--color-" + (color || "NONE")].join(' ').trim();
+    return React.createElement("div", {
+      className: className,
+      style: divStyle
+    }, content);
+  };
+
+  return TooltipContainer;
+}(React.Component);
+
+exports.TooltipContainer = TooltipContainer;
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(__extends, "__extends", "/Users/dennisat/dev/dyna/dyna-ui-tooltip/src/tooltip-container/TooltipContainer.tsx");
+  reactHotLoader.register(__assign, "__assign", "/Users/dennisat/dev/dyna/dyna-ui-tooltip/src/tooltip-container/TooltipContainer.tsx");
+  reactHotLoader.register(animationDuration, "animationDuration", "/Users/dennisat/dev/dyna/dyna-ui-tooltip/src/tooltip-container/TooltipContainer.tsx");
+  reactHotLoader.register(TooltipContainer, "TooltipContainer", "/Users/dennisat/dev/dyna/dyna-ui-tooltip/src/tooltip-container/TooltipContainer.tsx");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
+/***/ 0:
+/*!*****************************!*\
+  !*** multi ./src/index.tsx ***!
+  \*****************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /Users/dennisat/dev/dyna/dyna-ui-tooltip/src/index.tsx */"./src/index.tsx");
+
+
+/***/ }),
+
+/***/ "dyna-debounce":
+/*!********************************!*\
+  !*** external "dyna-debounce" ***!
+  \********************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = require("dyna-debounce");
+
+/***/ }),
+
+/***/ "dyna-ui-styles":
+/*!*********************************!*\
+  !*** external "dyna-ui-styles" ***!
+  \*********************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = require("dyna-ui-styles");
+
+/***/ }),
+
+/***/ "react":
+/*!************************!*\
+  !*** external "react" ***!
+  \************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = require("react");
+
+/***/ }),
+
+/***/ "react-dom":
+/*!****************************!*\
+  !*** external "react-dom" ***!
+  \****************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = require("react-dom");
+
+/***/ })
+
+/******/ });
+});
+//# sourceMappingURL=index.js.map

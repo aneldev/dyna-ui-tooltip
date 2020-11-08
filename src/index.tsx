@@ -1,5 +1,8 @@
 export {
   DynaTooltip, IDynaTooltipProps,
-  EStyle, EColor, ETooltipDirection,
 } from "./DynaTooltip";
+
+export {
+  EStyle, EColor, ETooltipDirection,
+} from "./interfaces";
 

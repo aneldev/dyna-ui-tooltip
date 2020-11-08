@@ -19,10 +19,12 @@
       opacity: 1;
       //animation: dyna-tooltip-show 250ms forwards;
     }
+
     &HIDE {
       opacity: 0;
       //animation: dyna-tooltip-hide 250ms forwards;
     }
+
     @keyframes dyna-tooltip-show {
       0% {
         opacity: 0.001;
@@ -48,6 +50,7 @@
       box-shadow: 3px 3px 6px 0px #3c3c3c;
       border-radius: 4px;
     }
+
     &FLATTED {
       border: 1px solid;
       padding: 4px 8px;
@@ -61,46 +64,55 @@
       border-color: @color-BLACK_WHITE-foreground-3;
       color: @color-BLACK_WHITE-black-1;
     }
+
     &BLACK_ORANGE {
       background-color: @color-BLACK_ORANGE-background-1;
       border-color: @color-BLACK_ORANGE-foreground-3;
       color: @color-BLACK_ORANGE-black-1;
     }
+
     &TRANSPARENT_ORANGE {
       background-color: @color-TRANSPARENT_ORANGE-background-1;
       border-color: @color-TRANSPARENT_ORANGE-foreground-3;
       color: @color-TRANSPARENT_ORANGE-black-1;
     }
+
     &TRANSPARENT_WHITE {
       background-color: @color-TRANSPARENT_WHITE-background-1;
       border-color: @color-TRANSPARENT_WHITE-foreground-3;
       color: @color-TRANSPARENT_WHITE-black-1;
     }
+
     &ORANGE_WHITE {
       background-color: @color-ORANGE_WHITE-background-1;
       border-color: @color-ORANGE_WHITE-foreground-3;
       color: @color-ORANGE_WHITE-black-1;
     }
+
     &RED_WHITE {
       background-color: @color-RED_WHITE-background-1;
       border-color: @color-RED_WHITE-foreground-3;
       color: @color-RED_WHITE-black-1;
     }
+
     &GREY_WHITE {
       background-color: @color-GREY_WHITE-background-1;
       border-color: @color-GREY_WHITE-foreground-3;
       color: @color-GREY_WHITE-foreground-2;
     }
+
     &WHITE_BLACK {
       background-color: @color-WHITE_BLACK-background-1;
       border-color: @color-WHITE_BLACK-foreground-3;
       color: @color-WHITE_BLACK-black-1;
     }
+
     &WHITE_RED {
       background-color: @color-WHITE_RED-background-1;
       border-color: @color-WHITE_RED-foreground-3;
       color: @color-WHITE_RED-black-1;
     }
+
     &WHITE_ORANGE {
       background-color: @color-WHITE_ORANGE-background-1;
       border-color: @color-WHITE_ORANGE-foreground-3;
@@ -111,24 +123,31 @@
   &--direction-NORTH {
     transform: translate(-50%, -125%);
   }
+
   &--direction-EAST {
     transform: translate(+25%, -50%);
   }
+
   &--direction-SOUTH {
     transform: translate(-50%, +20%);
   }
+
   &--direction-WEST {
     transform: translate(-125%, -50%);
   }
+
   &--direction-NORTH_EAST {
     transform: translate(+25%, -125%);
   }
+
   &--direction-NORTH_WEST {
     transform: translate(-125%, -125%);
   }
+
   &--direction-SOUTH_EAST {
     transform: translate(+25%, +20%);
   }
+
   &--direction-SOUTH_WEST {
     transform: translate(-125%, +20%);
   }
