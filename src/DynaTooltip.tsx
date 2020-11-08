@@ -141,13 +141,13 @@ export class DynaTooltip extends React.Component<IDynaTooltipProps> {
 		});
 	}
 
-	public render(): JSX.Element {
-		const {
-			className,
-			nodeType,
-			nodeStyle,
-			children,
-		} = this.props;
+  public render(): JSX.Element {
+    const {
+      className,
+      nodeType = 'span',
+      nodeStyle,
+      children,
+    } = this.props;
 
 		const CustomNode = `${nodeType}` as any;
 
